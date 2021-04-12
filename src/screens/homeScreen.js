@@ -12,6 +12,8 @@ import { Card, Footer, Wallet, Work } from '../patterns/'
 
 import info from '../assets/icons/info.svg'
 
+import ConnectWallet, {checkNetwork} from '../patterns/modals/connectWallet'
+
 const HomeScreen = () => {
 
      const renderInfo = (
@@ -28,6 +30,7 @@ const HomeScreen = () => {
             This is an experimental software. 
             Use it at your own risk.
         </p>
+       
     </div>
     )
 
@@ -76,6 +79,7 @@ const HomeScreen = () => {
         <>
             {renderHomeScreen}
             <Work />
+            <ConnectWallet/>
             <Footer />
         </>
     )
