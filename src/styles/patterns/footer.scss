@@ -1,0 +1,54 @@
+@import "../../index.scss";
+
+.footer{
+    width: 100%;
+    background: #fff;
+    padding: 1.5em 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.6em;
+
+    @media (max-width:768px) {
+        flex-direction: column;
+        grid-gap: 2em;
+    }
+}
+
+.footer .footer-logo{
+    display: flex;
+    align-items: center;
+    grid-gap: 2.5em;
+    img{
+        width: 12em;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        color: $text-secondary;
+        font-size: 14px;
+
+        @media (max-width:768px) {
+            display: none;
+        }
+    }
+}
+
+.footer .icons{
+    display: flex;
+    align-items: center;
+    grid-gap: 1.5em;
+}
+
+.footer .copyright{
+    display: none;
+    text-align: center;
+
+    @media (max-width:768px) {
+        display: block;
+    }
+
+    @media (max-width:576px) {
+        font-size: 0.75em;
+    }
+}

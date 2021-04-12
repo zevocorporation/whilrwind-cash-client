@@ -1,0 +1,168 @@
+@font-face {
+  font-family: 'Larsseit bold';
+  src: url(./assets/fonts/Larsseit-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Larsseit medium';
+  src: url(./assets/fonts/Larsseit-Medium.ttf);
+}
+
+@font-face {
+  font-family: 'Larsseit regular';
+  src: url(./assets/fonts/Larsseit-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Larsseit italic';
+  src: url(./assets/fonts/Larsseit-Italic.ttf);
+}
+
+@font-face {
+  font-family: 'Larsseit light';
+  src: url(./assets/fonts/Larsseit-Light.ttf);
+}
+
+$font-bold: 'Larsseit bold';
+$font-medium: 'Larsseit medium';
+$font-italic: 'Larsseit italic';
+$font-light: 'Larsseit light';
+$font-regular: 'Larsseit regular';
+
+$primary: #4FACFE;
+$secondary: #999999;
+$text-primary: #002D57;
+$text-secondary: #34485A;
+$gradient: #4FACFE;
+$label: #B1B7BC;
+$error: #FF5050;
+$success: #1FCC79;
+$background: #FDFFFF;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+body{
+  font-family: $font-regular;
+  background: $background;
+  width: 100%;
+  padding: 0 50px;
+  letter-spacing: 0.03em;
+
+  @media (max-width:768px) {
+    padding: 0 40px;
+  }
+
+  @media (max-width:576px) {
+    padding: 0 1em;
+  }
+}
+
+a{
+  text-decoration: none;
+}
+
+.btn-primary{
+  border: none;
+  outline: none;
+  background: linear-gradient(180deg, #00F2FE -24136%, #4FACFE 48696%);
+  border-radius: 3px;
+  padding: 0.7em 1em;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1em;
+  white-space: nowrap;
+}
+
+.txt-reg-14-txt-pri{
+  font-size: 0.875em;
+  color: $text-primary;
+}
+
+.txt-reg-14-txt-grad{
+  font-size: 0.875em;
+  background: -webkit-linear-gradient(180deg, #00F2FE -24136%, #4FACFE 48696%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.txt-reg-16-txt-pri{
+  font-size: 1em;
+  color: $text-primary;
+
+  @media (max-width:576px) {
+    font-size: 14px;
+  }
+  
+}
+
+.txt-reg-24-txt-pri{
+  font-size: 1.5em;
+  font-weight: 500;
+  color: $text-primary;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+}
+
+.txt-reg-14-txt-sec{
+  font-size: 0.875em;
+  color: $text-secondary;
+  line-height: 22px;
+  font-weight: normal;
+}
+
+.txt-reg-16-txt-sec{
+  font-size: 1em;
+  color: $text-secondary;
+  line-height: 22px;
+  font-weight: 500;
+
+  @media (max-width:576px) {
+    font-size: 14px;
+  }
+
+}
+
+.title-b-24-txt-pri{
+  font-size: 1.5em;
+  color: $text-primary;
+  letter-spacing: 0.05em;
+  font-family: $font-bold;
+  text-transform: capitalize;
+}
+
+.title-b-32-txt-pri{
+  font-size: 2em;
+  color: $text-primary;
+  letter-spacing: 0.05em;
+  font-family: $font-bold;
+  text-transform: capitalize;
+
+    @media (max-width:576px) {
+      font-size: 1.5em;
+    }
+}
+
+.title-reg-24-txt-pri{
+  font-size: 1.5em;
+  color: $text-primary;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.workcard-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1.25em;
+
+  @media (max-width:576px) {
+      grid-template-columns: 1fr;
+  }
+}

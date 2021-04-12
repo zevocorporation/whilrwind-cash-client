@@ -1,0 +1,7 @@
+@import "../../index.scss";
+
+.home .details{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 6em;
+}
