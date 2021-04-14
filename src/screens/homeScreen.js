@@ -15,6 +15,8 @@ import info from '../assets/icons/info.svg'
 import hint from '../assets/icons/hint.svg'
 import downarrow from '../assets/icons/downarrow.svg'
 
+import ConnectWallet, {checkNetwork} from '../patterns/modals/connectWallet'
+
 const HomeScreen = () => {
 
     //HANDLING METHODS
@@ -55,6 +57,7 @@ const HomeScreen = () => {
             This is an experimental software. 
             Use it at your own risk.
         </p>
+       
     </div>
     )
 
@@ -156,6 +159,7 @@ const HomeScreen = () => {
         <>
             {renderHomeScreen}
             <Work />
+            <ConnectWallet/>
             <Footer />
         </>
     )
