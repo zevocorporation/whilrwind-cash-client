@@ -4,6 +4,11 @@ import React from 'react'
 
 import '../styles/patterns/card.scss'
 
+//IMPORTING MEDIA ASSETS
+
+// import uparrow from '../assets/icons/uparrow.svg'
+// import downarrow from '../assets/icons/downarrow.svg'
+
 const Card = (props) => {
 
     const renderWorkcard = (
@@ -15,8 +20,7 @@ const Card = (props) => {
     )
 
     const renderTransactionType = (
-        <div>
-
+        <div className="card-details">
         </div>
     )
 

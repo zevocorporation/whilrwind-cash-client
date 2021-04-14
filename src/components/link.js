@@ -1,16 +1,18 @@
 //IMPORTING NPM PACKAGES
 
 import React from 'react'
-import { Link as ReactLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const Link = (props) => {
     return (
-        <ReactLink
+        <NavLink
             to={props.to}
             className={props.className}
+            onClick={props.onClick}
+            activeClassName={props.activeClassName}
         >
             {props.children}
-        </ReactLink>
+        </NavLink>
     )
 }
 

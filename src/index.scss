@@ -51,20 +51,19 @@ body{
   font-family: $font-regular;
   background: $background;
   width: 100%;
-  padding: 0 50px;
   letter-spacing: 0.03em;
-
-  @media (max-width:768px) {
-    padding: 0 40px;
-  }
-
-  @media (max-width:576px) {
-    padding: 0 1em;
-  }
 }
 
 a{
   text-decoration: none;
+}
+
+.active{
+  color: #000;
+}
+
+button,.cursor{
+  cursor: pointer;
 }
 
 .btn-primary{
@@ -91,6 +90,15 @@ a{
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.txt-reg-16-txt-grad{
+  font-size: 1em;
+  background: -webkit-linear-gradient(180deg, #00F2FE -24136%, #4FACFE 48696%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 .txt-reg-16-txt-pri{
   font-size: 1em;
@@ -129,6 +137,14 @@ a{
 
 }
 
+.title-b-16-txt-pri{
+  font-size: 1em;
+  color: $text-primary;
+  letter-spacing: 0.05em;
+  font-family: $font-bold;
+  text-transform: capitalize;
+}
+
 .title-b-24-txt-pri{
   font-size: 1.5em;
   color: $text-primary;
@@ -161,8 +177,45 @@ a{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1.25em;
+  padding: 0 50px;
 
+  @media (max-width:768px) {
+    padding: 0 30px;
+  }
   @media (max-width:576px) {
       grid-template-columns: 1fr;
+      padding: 0 1em;
+  }
+}
+
+.home,.withdraw-screen,.compliance-screen,.activity-screen{
+  padding: 0 50px;
+
+  @media (max-width:768px) {
+    padding: 0 30px;
+  }
+  @media (max-width:576px) {
+      grid-template-columns: 1fr;
+      padding: 0 1em;
+  }
+}
+
+
+.block-right .transaction-card{
+  background: #FFFFFF;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  border-radius: 5px;
+  padding: 1em 1em;
+  margin: 1em 0;
+
+  .history{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px dashed #4FACFE;
+    padding: 0.8em 0;
+  }
+  .history:nth-last-child(1){
+    border: none;
   }
 }

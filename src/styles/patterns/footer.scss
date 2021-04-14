@@ -8,10 +8,15 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 1.6em;
+    padding: 0 50px;
 
     @media (max-width:768px) {
         flex-direction: column;
         grid-gap: 2em;
+        padding: 0 30px;
+    }
+    @media (max-width:576px) {
+        padding: 0 1em;
     }
 }
 
