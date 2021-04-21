@@ -23,7 +23,6 @@ import { UserContext, TransactionContext } from "./store/contexts";
 import { UserReducer, TransactionReducer } from "./store/reducers";
 
 const App = () => {
-  init();
   const [userState, UserDispatch] = useReducer(UserReducer);
   const [transactionState, transactionDispatch] = useReducer(
     TransactionReducer

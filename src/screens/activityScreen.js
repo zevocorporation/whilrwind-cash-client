@@ -14,6 +14,9 @@ import info from "../assets/icons/info.svg";
 import copy from "../assets/icons/copy.svg";
 
 const ActivityScreen = () => {
+  async function getTransactions() {
+    //let transactions = fetch(https://api.bscscan.com/api?module=account&action=txlist&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=99999999&sort=asc&apikey=YourApiKeyToken)
+  }
   const lists = [
     "Choose a token",
     "Select amount to deposit",
