@@ -1,5 +1,5 @@
 //IMPORTING NPM PACKAGES
-import React from "react";
+import React, { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //IMPORTING PATTRENS
@@ -17,9 +17,18 @@ import {
   ErrorScreen,
 } from "./screens/";
 
+//IMPORTING STORE COMPONENTS
+
+import { UserContext, TransactionContext } from "./store/contexts";
+import { UserReducer, TransactionReducer } from "./store/reducers";
+
 const App = () => {
   init();
-  return (
+  const [userState, UserDispatch] = useReducer(UserReducer);
+  const [transactionState, transactionDispatch] = useReducer(
+    TransactionReducer
+  );
+  const renderRoutes = (
     <Router>
       <Header />
       <Switch>
@@ -40,6 +49,17 @@ const App = () => {
         </Route>
       </Switch>
     </Router>
+  );
+  return (
+    <>
+      <UserContext.Provider value={{ userState, UserDispatch }}>
+        <TransactionContext.Provider
+          value={{ transactionState, transactionDispatch }}
+        >
+          {renderRoutes}
+        </TransactionContext.Provider>
+      </UserContext.Provider>
+    </>
   );
 };
 
