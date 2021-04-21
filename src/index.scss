@@ -1,45 +1,45 @@
 @font-face {
-  font-family: 'Larsseit bold';
+  font-family: "Larsseit bold";
   src: url(./assets/fonts/Larsseit-Bold.ttf);
 }
 
 @font-face {
-  font-family: 'Larsseit medium';
+  font-family: "Larsseit medium";
   src: url(./assets/fonts/Larsseit-Medium.ttf);
 }
 
 @font-face {
-  font-family: 'Larsseit regular';
+  font-family: "Larsseit regular";
   src: url(./assets/fonts/Larsseit-Regular.ttf);
 }
 
 @font-face {
-  font-family: 'Larsseit italic';
+  font-family: "Larsseit italic";
   src: url(./assets/fonts/Larsseit-Italic.ttf);
 }
 
 @font-face {
-  font-family: 'Larsseit light';
+  font-family: "Larsseit light";
   src: url(./assets/fonts/Larsseit-Light.ttf);
 }
 
-$font-bold: 'Larsseit bold';
-$font-medium: 'Larsseit medium';
-$font-italic: 'Larsseit italic';
-$font-light: 'Larsseit light';
-$font-regular: 'Larsseit regular';
+$font-bold: "Larsseit bold";
+$font-medium: "Larsseit medium";
+$font-italic: "Larsseit italic";
+$font-light: "Larsseit light";
+$font-regular: "Larsseit regular";
 
-$primary: #4FACFE;
+$primary: #4facfe;
 $secondary: #999999;
-$text-primary: #002D57;
-$text-secondary: #34485A;
-$gradient: #4FACFE;
-$label: #B1B7BC;
-$error: #FF5050;
-$success: #1FCC79;
-$background: #FDFFFF;
+$text-primary: #002d57;
+$text-secondary: #34485a;
+$gradient: #4facfe;
+$label: #b1b7bc;
+$error: #ff5050;
+$success: #1fcc79;
+$background: #fdffff;
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -47,29 +47,30 @@ $background: #FDFFFF;
   -moz-box-sizing: border-box;
 }
 
-body{
+body {
   font-family: $font-regular;
   background: $background;
   width: 100%;
   letter-spacing: 0.03em;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-.active{
+.active {
   color: #000;
 }
 
-button,.cursor{
+button,
+.cursor {
   cursor: pointer;
 }
 
-.btn-primary{
+.btn-primary {
   border: none;
   outline: none;
-  background: linear-gradient(180deg, #00F2FE -24136%, #4FACFE 48696%);
+  background: linear-gradient(180deg, #00f2fe -24136%, #4facfe 48696%);
   border-radius: 3px;
   padding: 0.7em 1em;
   color: #fff;
@@ -78,39 +79,46 @@ button,.cursor{
   white-space: nowrap;
 }
 
-.txt-reg-14-txt-pri{
+.txt-reg-14-txt-pri {
   font-size: 0.875em;
   color: $text-primary;
 }
 
-.txt-reg-14-txt-grad{
+.txt-reg-14-txt-grad {
   font-size: 0.875em;
-  background: -webkit-linear-gradient(180deg, #00F2FE -24136%, #4FACFE 48696%);
+  background: -webkit-linear-gradient(180deg, #00f2fe -24136%, #4facfe 48696%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.txt-reg-16-txt-grad{
+.txt-reg-16-txt-grad {
   font-size: 1em;
-  background: -webkit-linear-gradient(180deg, #00F2FE -24136%, #4FACFE 48696%);
+  background: -webkit-linear-gradient(180deg, #00f2fe -24136%, #4facfe 48696%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.title-b-32-txt-grad {
+  font-size: 2em;
+  font-weight: bold;
+  background: -webkit-linear-gradient(180deg, #00f2fe -24136%, #4facfe 48696%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-.txt-reg-16-txt-pri{
+.txt-reg-16-txt-pri {
   font-size: 1em;
   color: $text-primary;
 
-  @media (max-width:576px) {
+  @media (max-width: 576px) {
     font-size: 14px;
   }
-  
 }
 
-.txt-reg-24-txt-pri{
+.txt-reg-24-txt-pri {
   font-size: 1.5em;
   font-weight: 500;
   color: $text-primary;
@@ -118,26 +126,25 @@ button,.cursor{
   text-transform: capitalize;
 }
 
-.txt-reg-14-txt-sec{
+.txt-reg-14-txt-sec {
   font-size: 0.875em;
   color: $text-secondary;
   line-height: 22px;
   font-weight: normal;
 }
 
-.txt-reg-16-txt-sec{
+.txt-reg-16-txt-sec {
   font-size: 1em;
   color: $text-secondary;
   line-height: 22px;
   font-weight: 500;
 
-  @media (max-width:576px) {
+  @media (max-width: 576px) {
     font-size: 14px;
   }
-
 }
 
-.title-b-16-txt-pri{
+.title-b-16-txt-pri {
   font-size: 1em;
   color: $text-primary;
   letter-spacing: 0.05em;
@@ -145,7 +152,7 @@ button,.cursor{
   text-transform: capitalize;
 }
 
-.title-b-24-txt-pri{
+.title-b-24-txt-pri {
   font-size: 1.5em;
   color: $text-primary;
   letter-spacing: 0.05em;
@@ -153,19 +160,19 @@ button,.cursor{
   text-transform: capitalize;
 }
 
-.title-b-32-txt-pri{
+.title-b-32-txt-pri {
   font-size: 2em;
   color: $text-primary;
   letter-spacing: 0.05em;
   font-family: $font-bold;
   text-transform: capitalize;
 
-    @media (max-width:576px) {
-      font-size: 1.5em;
-    }
+  @media (max-width: 576px) {
+    font-size: 1.5em;
+  }
 }
 
-.title-reg-24-txt-pri{
+.title-reg-24-txt-pri {
   font-size: 1.5em;
   color: $text-primary;
   letter-spacing: 0.05em;
@@ -173,49 +180,51 @@ button,.cursor{
   text-transform: capitalize;
 }
 
-.workcard-container{
+.workcard-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1.25em;
   padding: 0 50px;
 
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     padding: 0 30px;
   }
-  @media (max-width:576px) {
-      grid-template-columns: 1fr;
-      padding: 0 1em;
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+    padding: 0 1em;
   }
 }
 
-.home,.withdraw-screen,.compliance-screen,.activity-screen{
+.home,
+.withdraw-screen,
+.compliance-screen,
+.activity-screen {
   padding: 0 50px;
 
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     padding: 0 30px;
   }
-  @media (max-width:576px) {
-      grid-template-columns: 1fr;
-      padding: 0 1em;
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+    padding: 0 1em;
   }
 }
 
-
-.block-right .transaction-card{
-  background: #FFFFFF;
+.block-right .transaction-card {
+  background: #ffffff;
   box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
   border-radius: 5px;
   padding: 1em 1em;
   margin: 1em 0;
 
-  .history{
+  .history {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 0.5px dashed #4FACFE;
+    border-bottom: 0.5px dashed #4facfe;
     padding: 0.8em 0;
   }
-  .history:nth-last-child(1){
+  .history:nth-last-child(1) {
     border: none;
   }
 }

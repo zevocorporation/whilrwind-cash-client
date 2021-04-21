@@ -8,6 +8,10 @@ import "../../styles/patterns/modal.scss";
 
 import { Button } from "../../components";
 
+//IMPORTING MEDIA ASSETS
+
+import metamask from "../../assets/images/metamask.png";
+
 const ConnectModal = ({ setIsConnectPopup }) => {
   //HANDLING BINANCE WALLET
 
@@ -27,3 +31,17 @@ const ConnectModal = ({ setIsConnectPopup }) => {
 };
 
 export default ConnectModal;
+
+export const ConnectWalletWarningModal = () => {
+  return (
+    <div className="warning-modal">
+      <img src={metamask} ait="metamask-logo" />
+      <p>Connect Wallet</p>
+      <p>
+        Connect your Metamask account to Whirlwind.Cash for continuing
+        transactions.
+      </p>
+      <Button className="btn-primary">Connect</Button>
+    </div>
+  );
+};
