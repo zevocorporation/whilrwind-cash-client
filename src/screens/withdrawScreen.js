@@ -1,152 +1,152 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 //IMPORTING STYLESHEET
 
-import '../styles/screens/withdraw.scss'
+import "../styles/screens/withdraw.scss";
 
 //IMPORTING PATTERNS
 
-import { Footer, Wallet, Work } from '../patterns'
-import { Button } from '../components'
+import { Footer, Wallet, Work } from "../patterns";
+import { Button } from "../components";
 
 //IMPORTING MEDIA ASSETS
 
-import info from '../assets/icons/info.svg'
-import hint from '../assets/icons/hint.svg'
-import uparrow from '../assets/icons/uparrow.svg'
+import info from "../assets/icons/info.svg";
+import hint from "../assets/icons/hint.svg";
+import uparrow from "../assets/icons/uparrow.svg";
 
 const WithdrawScreen = () => {
+  //INITILIZING HOOKS
 
-    //INITILIZING HOOKS
+  const [state, setState] = useState(false);
+  const [notes, setNotes] = useState();
 
-    const [state,setState] = useState(false)
+  //HANDLING METHODS
 
-    //HANDLING METHODS
+  const handleWithdraw = async () => {
+    let result = await window.getWithdrawInfo(notes);
+    console.log(result);
+  };
 
-    const handleWithdraw = () => {
+  //INLINE STYLES
 
-    }
+  const inlineStyle = {
+    flex: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      width: "100%",
+    },
+    flexGap: {
+      display: "flex",
+      alignItems: "center",
+      gridGap: 10,
+    },
+  };
 
-    //INLINE STYLES
+  const renderInfo = (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gridGap: 16,
+        marginBottom: "2em",
+      }}
+    >
+      <img src={info} alt="info" />
+      <p className="txt-reg-14-txt-grad">
+        This is an experimental software. Use it at your own risk.
+      </p>
+    </div>
+  );
 
-    const inlineStyle={
-        flex:{
-            display:'flex',
-            alignItems:'center',
-            justifyContent:'space-between',
-            width:'100%'
-        },
-        flexGap:{
-            display:'flex',
-            alignItems:'center',
-            gridGap:10
-        }
-    }
-
-    const renderInfo = (
-        <div 
-            style={{
-                display:'flex',
-                alignItems:'center',
-                gridGap:16
-                ,marginBottom:'2em'
-            }}
-        >
-            <img src={info} alt="info" />
-            <p className="txt-reg-14-txt-grad">
-                This is an experimental software. 
-                Use it at your own risk.
-            </p>
-        </div>   
-    )
-
-    const renderDetailsCard = (
-        <div className="block-right">
-        <div style={inlineStyle.flex}>
-            <p className="title-b-24-txt-pri">Latest deposits</p>
-            <p className="txt-reg-14-txt-grad">see more</p>
+  const renderDetailsCard = (
+    <div className="block-right">
+      <div style={inlineStyle.flex}>
+        <p className="title-b-24-txt-pri">Latest deposits</p>
+        <p className="txt-reg-14-txt-grad">see more</p>
+      </div>
+      <div className="transaction-card">
+        <div className="history">
+          <img src={uparrow} alt="uparrow" />
+          <span>0 ETH</span>
+          <span>address</span>
+          <span>2 mins</span>
         </div>
-            <div className="transaction-card">
-                    <div className="history">
-                        <img src={uparrow} alt="uparrow" />
-                        <span>0 ETH</span>
-                        <span>address</span>
-                        <span>2 mins</span>
-                    </div>
-            </div>
-        </div>
-    )
+      </div>
+    </div>
+  );
 
-    const renderDetails = (
-        <div className="details-block">
-            <div className="block-left">
-                <p style={inlineStyle.flexGap}>
-                    <span className="txt-reg-16-txt-pri">Note</span>
-                    <img src={info} alt="info" />
-                </p>
-                <div className="txt-reg-14-txt-pri note">
-                whirlwind-bnb-1-56-0x0c5cb0536f9f825f0e14cad9
-                c8750a37f1ce89fff5295e404c9c4a54be9d509fff8e4
-                73c319a94be0712e40bc340102d70cac089a9141b0125
-                56d6c3b5b6iaskh2s515c15z1xc15xcc1s-sds-czx5xc
-                52zxc11z-ase
-            </div>
-            <p style={inlineStyle.flexGap}>
-                <span className="txt-reg-16-txt-pri">Recipient</span>
-                <img src={info} alt="info" />
-            </p>
-            <div className="input-radio">
-                <input type="radio" onChange={() => setState(false)} name="type" />
-                <span>Me</span>
-                <input type="radio" onChange={() => setState(true)} name="type" />
-                <span>Someone else</span>
-            </div>
-           {state ? (
-               <>
-                <p className="txt-reg-16-txt-pri">Recipient address</p>
-                <div className="note txt-reg-14-txt-sec">0xDD4c48C0B24039969fC16D1cdF626eaB821d3384</div>
-               </>
-           ) : null }
-            <div style={inlineStyle.flexGap}>
-                    <img src={hint} alt="hint" />
-                    <p style={{width:'90%'}} className="txt-reg-14-txt-sec">
-                        <span style={{color:'#4FACFE',fontSize:16}}>Hint:</span>
-                        It is recommended you wait a little 
-                        between deposit and withdrawal. Give 
-                        your deposit some time to mix with 
-                        deposits from other users, so that 
-                        it won’t be possible to trace your 
-                        transaction back to you.
-                    </p>
-                </div>
-                <Button className="btn-primary" onClick={() => handleWithdraw()}>Withdraw funds</Button>
-            </div>
-            {renderDetailsCard}
+  const renderDetails = (
+    <div className="details-block">
+      <div className="block-left">
+        <p style={inlineStyle.flexGap}>
+          <span className="txt-reg-16-txt-pri">Note</span>
+          <img src={info} alt="info" />
+        </p>
+        <div className="txt-reg-14-txt-pri note">
+          <input type="text" onChange={(e) => setNotes(e.target.value)} />
         </div>
-    )
+        <p style={inlineStyle.flexGap}>
+          <span className="txt-reg-16-txt-pri">Recipient</span>
+          <img src={info} alt="info" />
+        </p>
+        <div className="input-radio">
+          <input type="radio" onChange={() => setState(false)} name="type" />
+          <span>Me</span>
+          <input type="radio" onChange={() => setState(true)} name="type" />
+          <span>Someone else</span>
+        </div>
+        {state ? (
+          <>
+            <p className="txt-reg-16-txt-pri">Recipient address</p>
+            <div className="note txt-reg-14-txt-sec">
+              0xDD4c48C0B24039969fC16D1cdF626eaB821d3384
+            </div>
+          </>
+        ) : null}
+        <div style={inlineStyle.flexGap}>
+          <img src={hint} alt="hint" />
+          <p style={{ width: "90%" }} className="txt-reg-14-txt-sec">
+            <span style={{ color: "#4FACFE", fontSize: 16 }}>Hint:</span>
+            It is recommended you wait a little between deposit and withdrawal.
+            Give your deposit some time to mix with deposits from other users,
+            so that it won’t be possible to trace your transaction back to you.
+          </p>
+        </div>
+        <Button className="btn-primary" onClick={() => handleWithdraw()}>
+          Withdrawal info
+        </Button>
+        <Button className="btn-primary" onClick={() => window.withdraw()}>
+          Withdraw funds
+        </Button>
+      </div>
+      {renderDetailsCard}
+    </div>
+  );
 
-    const renderScreen = (
-        <div className="withdraw-screen">
-            {renderInfo}
-            <Wallet 
-             title="Withdraw"
-             details="Withdrawing takes tokens from your 
+  const renderScreen = (
+    <div className="withdraw-screen">
+      {renderInfo}
+      <Wallet
+        title="Withdraw"
+        details="Withdrawing takes tokens from your 
                 privacy pool and enters them into the 
                 metamask wallet. Once there, they can be 
                 redeemed by you to deposit funds into 
                 your privacy pool."
-            />
-            {renderDetails}
-        </div>
-    )
+      />
+      {renderDetails}
+    </div>
+  );
 
-    return (
-        <>
-            {renderScreen}
-           <Work />
-           <Footer />
-        </>
-    )
-}
+  return (
+    <>
+      {renderScreen}
+      <Work />
+      <Footer />
+    </>
+  );
+};
 
-export default WithdrawScreen
+export default WithdrawScreen;

@@ -1,38 +1,46 @@
 //IMPORTING NPM PACKAGES
-import React from 'react'
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //IMPORTING PATTRENS
 
-import { Header } from './patterns'
+import { Header } from "./patterns";
+import { init } from "./utils/whirlwind";
 
 //IMPORTING SCREENS
 
-import { HomeScreen, ActivityScreen, WithdrawScreen, ComplianceScreen, ErrorScreen} from './screens/'
+import {
+  HomeScreen,
+  ActivityScreen,
+  WithdrawScreen,
+  ComplianceScreen,
+  ErrorScreen,
+} from "./screens/";
 
 const App = () => {
+  init();
   return (
     <Router>
       <Header />
       <Switch>
         <Route path="/" exact>
-            <HomeScreen />
+          <HomeScreen />
         </Route>
         <Route path="/activity" exact>
-            <ActivityScreen />
+          <ActivityScreen />
         </Route>
         <Route path="/withdraw" exact>
-            <WithdrawScreen />
+          <WithdrawScreen />
         </Route>
         <Route path="/compliance" exact>
-            <ComplianceScreen />
+          <ComplianceScreen />
         </Route>
         <Route>
-            <ErrorScreen />
+          <ErrorScreen />
         </Route>
       </Switch>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;
