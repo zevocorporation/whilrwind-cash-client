@@ -1,102 +1,112 @@
-@import '../../index.scss';
+@import "../../index.scss";
 
-.success-modal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
-    z-index: 1000;
-    background: #fff;
+.success-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  z-index: 1000;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-gap: 1em;
+  text-align: center;
+  padding: 2em;
+}
+
+.note-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  z-index: 1000;
+  background: #fff;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1em;
+
+  div {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .note {
+    background: #f4fbff;
+    border: 0.5px solid rgba(177, 183, 188, 0.5);
+    border-radius: 5px;
+    padding: 1.25em;
+    word-break: break-word;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  width: 260px;
+  top: 100px;
+  right: 10%;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  z-index: 1000;
+  background: #fff;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1.5em;
+  border: 5px;
+  transition: 0.5s all ease-in-out;
+
+  a {
+    display: flex;
     align-items: center;
     grid-gap: 1em;
-    text-align: center;
-    padding: 2em;
-}
+  }
+  span {
+    color: $secondary;
+  }
+  .active span {
+    color: #000;
+  }
+  .sidebar-avatar {
+    width: 37px;
+    height: 37px;
+    display: none;
 
-.note-modal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
-    z-index: 1000;
-    background: #fff;
-    padding: 1.5em;
-    display: flex;
-    flex-direction: column;
-    grid-gap: 1em;
-
-    div{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    @media (max-width: 576px) {
+      display: block;
     }
-    
-    .note{
-        background: #F4FBFF;
-        border: 0.5px solid rgba(177, 183, 188, 0.5);
-        border-radius: 5px;
-        padding: 1.25em;
-        word-break: break-word;
+  }
+  .user-connected {
+    display: none;
+
+    @media (max-width: 576px) {
+      display: flex;
+      grid-gap: 1em;
     }
+  }
 }
 
-.sidebar{
-    position: fixed;
-    width: 260px;
-    top: 100px;
-    right: 10%;
-    box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
-    z-index: 1000;
-    background: #fff;
-    padding: 1.5em;
-    display: flex;
-    flex-direction: column;
-    grid-gap: 1.5em;
-    border: 5px;
-    transition: 0.5s all  ease-in-out;
-
-        a{
-            display: flex;
-            align-items: center;
-            grid-gap: 1em;
-        }
-        span{
-            color: $secondary;
-        }
-        .active span{
-            color: #000;
-        }
-        .sidebar-avatar{
-            width: 37px;
-            height: 37px;
-            display: none;
-
-            @media (max-width:576px) {
-                display: block;
-            }
-        }
-        .user-connected{
-            display: none;
-    
-            @media (max-width:576px) {
-                display: flex;
-                grid-gap: 1em;
-            }
-        }
+.sidebar::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background: #fff;
+  position: absolute;
+  right: 10px;
+  top: -20px;
+  z-index: 1000;
 }
 
-.sidebar::after{
-        content: '';
-        width: 20px;
-        height: 20px;
-        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        background: #fff;
-        position: absolute;
-        right: 10px;
-        top: -20px;
-        z-index: 1000;
+.connect-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 2em;
+  border-radius: 5px;
 }
