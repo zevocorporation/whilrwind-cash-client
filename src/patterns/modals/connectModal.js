@@ -171,14 +171,7 @@ export const WHIRLWIND_RELEVANT_ABI = [
 ];
 
 // Load everything
-export const init = async () => {
-  if (window.BinanceChain) {
-    window.web3 = new Web3(window.BinanceChain);
-  }
-  if (window.ethereum) {
-    window.web3 = new Web3(window.ethereum);
-  }
-  let web3 = window.web3;
+const init = async () => {
   // Load every Whirlwind
   window.window.whirlwinds = {};
   window.erc20s = {};
@@ -187,7 +180,7 @@ export const init = async () => {
   for (let coin in deployments) {
     window.whirlwinds[coin] = {};
     for (const instance in deployments[coin].instanceAddress) {
-      let whirlwind = new web3.eth.Contract(
+      let whirlwind = new window.web3.eth.Contract(
         WHIRLWIND_RELEVANT_ABI,
         deployments[coin].instanceAddress[instance]
       );
@@ -201,10 +194,12 @@ export const init = async () => {
         }
 
         // Deployment height
-        let start = 5772274;
-        let currHeight = await web3.eth.getBlockNumber();
+        //let start = 5772274;
+        let start = 6777777;
+        let currHeight = await window.web3.eth.getBlockNumber();
         let res = [];
         while (start < currHeight) {
+          console.log(start);
           settings.fromBlock = start;
           let next = Math.min(start + 5000, currHeight);
           settings.toBlock = next;
@@ -219,7 +214,7 @@ export const init = async () => {
 
     // If this is an ERC20, provide an instance
     if (coin !== "bnb") {
-      window.erc20s[coin] = new web3.eth.Contract(
+      window.erc20s[coin] = new window.web3.eth.Contract(
         ERC20_RELEVANT_ABI,
         deployments[coin].tokenAddress
       );
@@ -236,13 +231,6 @@ export const init = async () => {
 };
 
 //Check if already connected
-export const check = async () => {
-  if (window.web3) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 const ConnectModal = ({ setIsConnectPopup }) => {
   //HANDLING BINANCE WALLET
@@ -259,7 +247,9 @@ const ConnectModal = ({ setIsConnectPopup }) => {
       if (parseInt(window.BinanceChain.chainId) !== 56) {
         await window.BinanceChain.switchNetwork("bsc-mainnet");
       }
-      await init();
+      await init().catch(function (e) {
+        console.log(e);
+      });
       setIsConnectPopup(false);
     } else {
       alert("Binance Wallet not detected.Install BinanceWallet and try again");
@@ -284,7 +274,9 @@ const ConnectModal = ({ setIsConnectPopup }) => {
         );
         throw "";
       }
-      await init();
+      await init().catch(function (e) {
+        console.log(e);
+      });
       setIsConnectPopup(false);
     } else {
       alert("Metamask not detected.Install metamask wallet and try again");

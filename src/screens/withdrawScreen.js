@@ -15,6 +15,8 @@ import info from "../assets/icons/info.svg";
 import hint from "../assets/icons/hint.svg";
 import uparrow from "../assets/icons/uparrow.svg";
 
+import { getWithdrawInfo, withdraw } from "../utils/whirlwind";
+
 const WithdrawScreen = () => {
   //INITILIZING HOOKS
 
@@ -24,8 +26,15 @@ const WithdrawScreen = () => {
   //HANDLING METHODS
 
   const handleWithdraw = async () => {
-    let result = await window.getWithdrawInfo(notes);
+    let result = getWithdrawInfo(notes);
     console.log(result);
+  };
+
+  const finishWithdraw = async () => {
+    let withdrawal = await withdraw();
+    // .catch(function (result) {
+    //   alert(result);
+    // });
   };
 
   //INLINE STYLES
@@ -117,7 +126,7 @@ const WithdrawScreen = () => {
         <Button className="btn-primary" onClick={() => handleWithdraw()}>
           Withdrawal info
         </Button>
-        <Button className="btn-primary" onClick={() => window.withdraw()}>
+        <Button className="btn-primary" onClick={() => finishWithdraw()}>
           Withdraw funds
         </Button>
       </div>

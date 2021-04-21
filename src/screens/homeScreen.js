@@ -8,13 +8,12 @@ import "../styles/screens/home.scss";
 
 import { Footer, Wallet, Work } from "../patterns/";
 import { Button } from "../components";
+import { deposit, getNote } from "../utils/whirlwind";
 //IMPORTING MEDIA ASSETS
 
 import info from "../assets/icons/info.svg";
 import hint from "../assets/icons/hint.svg";
 import downarrow from "../assets/icons/downarrow.svg";
-
-import ConnectWallet, { checkNetwork } from "../patterns/modals/connectWallet";
 
 const HomeScreen = () => {
   // INITIALIZING HOOKS
@@ -37,42 +36,26 @@ const HomeScreen = () => {
     setNotes(notes);
   };
 
-  async function setData(choice) {
-    let selectedCoin;
-    let selectedAmount;
-    if (coin === "BNB") {
-      selectedCoin = 0;
-      if (choice === "0.1") {
-        selectedAmount = 0;
+  async function proceedDeposit() {
+    if (notes !== undefined) {
+      try {
+        let result = await deposit();
+      } catch (e) {
+        console.log(e);
       }
-      if (choice === "1") {
-        selectedAmount = 1;
-      }
-      if (choice === "10") {
-        selectedAmount = 2;
-      }
-      if (choice === "100") {
-        selectedAmount = 3;
-      }
+    } else {
+      alert("Generate Notes before deposit");
     }
-    if (coin === "WIND") {
-      selectedCoin = 1;
-      if (choice === "1") {
-        selectedAmount = 0;
-      }
-      if (choice === "10") {
-        selectedAmount = 1;
-      }
-      if (choice === "100") {
-        selectedAmount = 2;
-      }
-      if (choice === "1000") {
-        selectedAmount = 3;
-      }
+  }
+
+  async function setData() {
+    if (selectedCoin !== undefined || isSelectedAmt !== undefined) {
+      let note = getNote(selectedCoin, isSelectedAmt);
+      setNotes(note);
+      console.log(note);
+    } else {
+      alert("Choose a coin and a amount for further proceeding");
     }
-    console.log(selectedCoin, selectedAmount, choice);
-    let note = window.getNote(selectedCoin, selectedAmount);
-    setNotes(note);
   }
 
   const handleBnb = () => {
@@ -89,8 +72,9 @@ const HomeScreen = () => {
     setIsSelectedAmt();
   };
 
-  console.log(selectedCoin);
+  console.log(selectedCoin, "1");
   console.log(isSelectedAmt);
+
   //INLINE STYLES
 
   const inlineStyle = {
@@ -256,8 +240,11 @@ const HomeScreen = () => {
             so that it won’t be possible to trace your transaction back to you.
           </p>
         </div>
-        <Button className="btn-primary" onClick={() => window.deposit()}>
-          Connect wallet to deposit
+        <Button className="btn-primary" onClick={() => setData()}>
+          Generate note
+        </Button>
+        <Button className="btn-primary" onClick={() => proceedDeposit()}>
+          Deposit
         </Button>
       </div>
       {renderDetailsCard}
@@ -285,7 +272,7 @@ const HomeScreen = () => {
     <>
       {renderHomeScreen}
       <Work />
-      <ConnectWallet />
+
       <Footer />
     </>
   );

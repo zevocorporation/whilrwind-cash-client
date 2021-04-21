@@ -20,10 +20,9 @@ function toHex(number, length = 32) {
 }
 
 let web3 = window.web3;
-let erc20s = window.erc20s;
+
 let BinanceChain = window.BinanceChain;
 let next = window.next;
-let from = window.from;
 
 function createDeposit(nullifier, secret) {
   const deposit = { nullifier, secret };
@@ -38,53 +37,56 @@ function createDeposit(nullifier, secret) {
   return deposit;
 }
 
-window.getCurrencies = function () {
+function getCurrencies() {
   return ["BNB", "WIND"];
-};
+}
 
-window.getAmounts = function (coin) {
+function getAmounts(coin) {
   let denoms = [];
   for (let denom in window.whirlwinds[coin.toLowerCase()]) {
     denoms.push(denom);
   }
   denoms = denoms.sort();
   return denoms;
-};
+}
 
 let pendingDeposit;
-window.getNote = function (currency, amount) {
+export const getNote = (currency, amount) => {
   pendingDeposit = createDeposit(rbigint(31), rbigint(31));
-  pendingDeposit.currency = window.getCurrencies()[currency].toLowerCase();
-  pendingDeposit.amount = window
-    .getAmounts(pendingDeposit.currency)
-    [amount].toString();
+  pendingDeposit.currency = getCurrencies()[currency].toLowerCase();
+  pendingDeposit.amount = getAmounts(pendingDeposit.currency)[
+    amount
+  ].toString();
   const note = toHex(pendingDeposit.preimage, 62);
   const noteString = `whirlwind-${pendingDeposit.currency}-${pendingDeposit.amount}-56-${note}`;
   return noteString;
 };
 
-window.deposit = async function () {
+export const deposit = async () => {
+  let from = window.from;
+  let erc20s = window.erc20s;
   const currency = pendingDeposit.currency;
   const amount = pendingDeposit.amount;
   const whirlwind = window.whirlwinds[currency][amount];
+  console.log(currency);
 
   let depositOpts = {
     from,
     gas: 1500000,
-    gasPrice: web3.utils.toWei("10", "gwei"),
+    gasPrice: Web3.utils.toWei("10", "gwei"),
   };
 
   if (currency === "bnb") {
     depositOpts.value = fromDecimals(amount, 18);
   } else {
     if (
-      web3.utils
+      Web3.utils
         .toBN(
           await erc20s[currency].methods
             .allowance(from, whirlwind._address)
             .call()
         )
-        .lt(web3.utils.toBN(fromDecimals(amount, erc20s[currency].decimals)))
+        .lt(Web3.utils.toBN(fromDecimals(amount, erc20s[currency].decimals)))
     ) {
       // Approve the uint256 maximum
       await erc20s[currency].methods
@@ -92,17 +94,19 @@ window.deposit = async function () {
           whirlwind._address,
           "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
         )
-        .send({ from, gas: 80000, gasPrice: web3.utils.toWei("10", "gwei") });
+        .send({ from, gas: 80000, gasPrice: Web3.utils.toWei("10", "gwei") });
     }
   }
 
-  try {
-    await whirlwind.methods
-      .deposit(toHex(pendingDeposit.commitment))
-      .send(depositOpts);
-  } catch (e) {
-    throw "Error: Transaction failed. Please check your balance.";
-  }
+  console.log(depositOpts);
+
+  // try {
+  await whirlwind.methods
+    .deposit(toHex(pendingDeposit.commitment))
+    .send(depositOpts);
+  // } catch (e) {
+  //   throw "Error: Transaction failed. Please check your balance.";
+  // }
   return "Success! Your funds are now private. Please make sure your note is securely written down or they will be lost forever.";
 };
 
@@ -135,15 +139,15 @@ async function generateMerkleProof(whirlwind, deposit) {
     .call();
   console.log("19%");
   if (!isValidRoot === true) {
-    console.warn(
+    throw new Error(
       "Merkle tree is corrupted. Please contact development@whirlwind.cash."
     );
   }
   if (isSpent) {
-    console.warn("This note was already spent.");
+    throw new Error("This note was already spent.");
   }
   if (!(leafIndex >= 0)) {
-    console.warn("This deposit was not found.");
+    throw new Error("This deposit was not found.");
   }
 
   //   // Compute merkle proof of our commitment
@@ -203,8 +207,8 @@ async function generateProof(whirlwind, deposit, recipient) {
   return { proof, args };
 }
 
-let pendingWithdrawal;
-window.withdraw = async function () {
+export const withdraw = async () => {
+  let from = window.from;
   const { deposit, currency, amount } = pendingWithdrawal;
   const whirlwind = window.whirlwinds[currency][amount];
 
@@ -248,8 +252,8 @@ function parseNote(noteString) {
     deposit,
   };
 }
-
-window.getWithdrawInfo = async function (note) {
+let pendingWithdrawal;
+export const getWithdrawInfo = (note) => {
   pendingWithdrawal = parseNote(note);
   return [
     ["Currency", pendingWithdrawal.currency.toUpperCase()],
@@ -264,9 +268,10 @@ async function loadDepositData(whirlwind, deposit) {
       commitment: deposit.commitmentHex,
     },
   });
+  console.log(eventWhenHappened);
   console.log("3%");
   if (eventWhenHappened.length === 0) {
-    console.warn("This note doesn't have a matching deposit.");
+    throw new Error("This note doesn't have a matching deposit.");
   }
 
   const { timestamp } = eventWhenHappened[0].returnValues;
@@ -284,6 +289,7 @@ async function loadDepositData(whirlwind, deposit) {
 }
 
 async function loadWithdrawalData(currency, amount, deposit) {
+  let erc20s = window.erc20s;
   const whirlwind = window.whirlwinds[currency][amount];
   try {
     const events = await await whirlwind.getPastEvents("Withdrawal");
@@ -311,7 +317,7 @@ async function loadWithdrawalData(currency, amount, deposit) {
   }
 }
 
-window.getFullInfo = async function (note) {
+export const getFullInfo = async (note) => {
   const { currency, amount, deposit } = parseNote(note);
   console.log("1%");
   const depositInfo = await loadDepositData(

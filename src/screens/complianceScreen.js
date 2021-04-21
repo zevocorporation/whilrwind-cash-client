@@ -8,6 +8,7 @@ import "../styles/screens/withdraw.scss";
 
 import { Footer, Wallet, Work } from "../patterns";
 import { Button } from "../components";
+import { getFullInfo } from "../utils/whirlwind";
 
 //IMPORTING MEDIA ASSETS
 
@@ -21,7 +22,9 @@ const ComplianceScreen = () => {
   //HANDLING METHODS
 
   const handleCompliance = async () => {
-    let result = await window.getFullInfo(notes);
+    let result = await getFullInfo(notes).catch(function (res) {
+      alert(res);
+    });
   };
 
   //INLINE STYLES
