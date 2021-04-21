@@ -522,35 +522,6 @@ const WHIRLWIND_RELEVANT_ABI = [
 
 // Load everything
 export const init = async () => {
-  // Enable Ethereum
-  // Workaround for the Binance Wallet extension on Chrome, which has a significantly delayed loading time
-  // Sleeps for up to a second to try to find it
-  for (let i = 0; i < 10 && !window.BinanceChain; i++) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-  }
-  if (window.BinanceChain) {
-    window.web3 = new Web3(window.BinanceChain);
-    window.from = (await BinanceChain.request({ method: "eth_accounts" }))[0];
-    if (parseInt(window.BinanceChain.chainId) !== 56) {
-      await BinanceChain.switchNetwork("bsc-mainnet");
-    }
-  } else if (window.ethereum) {
-    window.web3 = new Web3(window.ethereum);
-    window.from = (
-      await window.ethereum.request({
-        jsonrpc: "2.0",
-        method: "eth_requestAccounts",
-        id: null,
-      })
-    )[0];
-    if ((await web3.eth.net.getId()) !== 56) {
-      alert(
-        "This site is for use with the Binance Smart Chain mainnet. Please switch to it to use this site."
-      );
-      throw "";
-    }
-  }
-
   // Load every Whirlwind
   window.window.whirlwinds = {};
   window.erc20s = {};
