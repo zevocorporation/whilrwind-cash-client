@@ -15,15 +15,236 @@ import buildGroth16 from "websnark/src/groth16";
 
 import metamask from "../../assets/images/metamask.png";
 
-const ConnectModal = ({ setIsConnectPopup }) => {
-  //Check if already connected
-  const check = async () => {
-    if (window.web3) {
-      return true;
-    } else {
-      return false;
+export const ERC20_RELEVANT_ABI = [
+  {
+    constant: true,
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    constant: true,
+    inputs: [
+      { internalType: "address", name: "owner", type: "address" },
+      { internalType: "address", name: "spender", type: "address" },
+    ],
+    name: "allowance",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: "address", name: "spender", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "approve",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
+
+// Relevant parts of the Whirlwind ABI.
+export const WHIRLWIND_RELEVANT_ABI = [
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "commitment",
+        type: "bytes32",
+      },
+      {
+        indexed: false,
+        internalType: "uint32",
+        name: "leafIndex",
+        type: "uint32",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
+      },
+    ],
+    name: "Deposit",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "nullifierHash",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "relayer",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "fee",
+        type: "uint256",
+      },
+    ],
+    name: "Withdrawal",
+    type: "event",
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "denomination",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    constant: true,
+    inputs: [{ internalType: "bytes32", name: "_root", type: "bytes32" }],
+    name: "isKnownRoot",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    constant: false,
+    inputs: [{ internalType: "bytes32", name: "_commitment", type: "bytes32" }],
+    name: "deposit",
+    outputs: [],
+    payable: true,
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: "bytes", name: "_proof", type: "bytes" },
+      { internalType: "bytes32", name: "_root", type: "bytes32" },
+      { internalType: "bytes32", name: "_nullifierHash", type: "bytes32" },
+      {
+        internalType: "address payable",
+        name: "_recipient",
+        type: "address",
+      },
+      { internalType: "address payable", name: "_relayer", type: "address" },
+      { internalType: "uint256", name: "_fee", type: "uint256" },
+      { internalType: "uint256", name: "_refund", type: "uint256" },
+    ],
+    name: "withdraw",
+    outputs: [],
+    payable: true,
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    constant: true,
+    inputs: [
+      { internalType: "bytes32", name: "_nullifierHash", type: "bytes32" },
+    ],
+    name: "isSpent",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+];
+
+// Load everything
+export const init = async () => {
+  if (window.BinanceChain) {
+    window.web3 = new Web3(window.BinanceChain);
+  }
+  if (window.ethereum) {
+    window.web3 = new Web3(window.ethereum);
+  }
+  let web3 = window.web3;
+  // Load every Whirlwind
+  window.window.whirlwinds = {};
+  window.erc20s = {};
+  let deployments = _deployments["netId56"];
+  let first = true;
+  for (let coin in deployments) {
+    window.whirlwinds[coin] = {};
+    for (const instance in deployments[coin].instanceAddress) {
+      let whirlwind = new web3.eth.Contract(
+        WHIRLWIND_RELEVANT_ABI,
+        deployments[coin].instanceAddress[instance]
+      );
+
+      // Implement a chunked getPastEvents
+      // BSC only allows a 5000 block range
+      whirlwind.actualGetPastEvents = whirlwind.getPastEvents;
+      whirlwind.getPastEvents = async (name, settings) => {
+        if (!settings) {
+          settings = {};
+        }
+
+        // Deployment height
+        let start = 5772274;
+        let currHeight = await web3.eth.getBlockNumber();
+        let res = [];
+        while (start < currHeight) {
+          settings.fromBlock = start;
+          let next = Math.min(start + 5000, currHeight);
+          settings.toBlock = next;
+          res = res.concat(await whirlwind.actualGetPastEvents(name, settings));
+          start = next;
+        }
+        return res;
+      };
+
+      window.whirlwinds[coin][instance] = whirlwind;
     }
-  };
+
+    // If this is an ERC20, provide an instance
+    if (coin !== "bnb") {
+      window.erc20s[coin] = new web3.eth.Contract(
+        ERC20_RELEVANT_ABI,
+        deployments[coin].tokenAddress
+      );
+      window.erc20s[coin].decimals = deployments[coin].decimals;
+    }
+  }
+
+  // zk-SNARKS data
+  window.groth16 = await buildGroth16();
+  window.circuit = await (await fetch("/withdraw.json")).json();
+  window.proving_key = await (
+    await fetch("/withdraw_proving_key.bin")
+  ).arrayBuffer();
+};
+
+//Check if already connected
+export const check = async () => {
+  if (window.web3) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const ConnectModal = ({ setIsConnectPopup }) => {
   //HANDLING BINANCE WALLET
 
   const handleBinance = async () => {
@@ -71,223 +292,6 @@ const ConnectModal = ({ setIsConnectPopup }) => {
   };
 
   // Relevant parts of the ERC20 ABI
-  const ERC20_RELEVANT_ABI = [
-    {
-      constant: true,
-      inputs: [{ internalType: "address", name: "account", type: "address" }],
-      name: "balanceOf",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: true,
-      inputs: [
-        { internalType: "address", name: "owner", type: "address" },
-        { internalType: "address", name: "spender", type: "address" },
-      ],
-      name: "allowance",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: false,
-      inputs: [
-        { internalType: "address", name: "spender", type: "address" },
-        { internalType: "uint256", name: "amount", type: "uint256" },
-      ],
-      name: "approve",
-      outputs: [{ internalType: "bool", name: "", type: "bool" }],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-  ];
-
-  // Relevant parts of the Whirlwind ABI.
-  const WHIRLWIND_RELEVANT_ABI = [
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "bytes32",
-          name: "commitment",
-          type: "bytes32",
-        },
-        {
-          indexed: false,
-          internalType: "uint32",
-          name: "leafIndex",
-          type: "uint32",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "timestamp",
-          type: "uint256",
-        },
-      ],
-      name: "Deposit",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          internalType: "address",
-          name: "to",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "bytes32",
-          name: "nullifierHash",
-          type: "bytes32",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "relayer",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "fee",
-          type: "uint256",
-        },
-      ],
-      name: "Withdrawal",
-      type: "event",
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: "denomination",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: true,
-      inputs: [{ internalType: "bytes32", name: "_root", type: "bytes32" }],
-      name: "isKnownRoot",
-      outputs: [{ internalType: "bool", name: "", type: "bool" }],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: false,
-      inputs: [
-        { internalType: "bytes32", name: "_commitment", type: "bytes32" },
-      ],
-      name: "deposit",
-      outputs: [],
-      payable: true,
-      stateMutability: "payable",
-      type: "function",
-    },
-    {
-      constant: false,
-      inputs: [
-        { internalType: "bytes", name: "_proof", type: "bytes" },
-        { internalType: "bytes32", name: "_root", type: "bytes32" },
-        { internalType: "bytes32", name: "_nullifierHash", type: "bytes32" },
-        {
-          internalType: "address payable",
-          name: "_recipient",
-          type: "address",
-        },
-        { internalType: "address payable", name: "_relayer", type: "address" },
-        { internalType: "uint256", name: "_fee", type: "uint256" },
-        { internalType: "uint256", name: "_refund", type: "uint256" },
-      ],
-      name: "withdraw",
-      outputs: [],
-      payable: true,
-      stateMutability: "payable",
-      type: "function",
-    },
-    {
-      constant: true,
-      inputs: [
-        { internalType: "bytes32", name: "_nullifierHash", type: "bytes32" },
-      ],
-      name: "isSpent",
-      outputs: [{ internalType: "bool", name: "", type: "bool" }],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-  ];
-
-  // Load everything
-  const init = async () => {
-    let web3 = window.web3;
-    // Load every Whirlwind
-    window.window.whirlwinds = {};
-    window.erc20s = {};
-    let deployments = _deployments["netId56"];
-    let first = true;
-    for (let coin in deployments) {
-      window.whirlwinds[coin] = {};
-      for (const instance in deployments[coin].instanceAddress) {
-        let whirlwind = new web3.eth.Contract(
-          WHIRLWIND_RELEVANT_ABI,
-          deployments[coin].instanceAddress[instance]
-        );
-
-        // Implement a chunked getPastEvents
-        // BSC only allows a 5000 block range
-        whirlwind.actualGetPastEvents = whirlwind.getPastEvents;
-        whirlwind.getPastEvents = async (name, settings) => {
-          if (!settings) {
-            settings = {};
-          }
-
-          // Deployment height
-          let start = 5772274;
-          let currHeight = await web3.eth.getBlockNumber();
-          let res = [];
-          while (start < currHeight) {
-            settings.fromBlock = start;
-            let next = Math.min(start + 5000, currHeight);
-            settings.toBlock = next;
-            res = res.concat(
-              await whirlwind.actualGetPastEvents(name, settings)
-            );
-            start = next;
-          }
-          return res;
-        };
-
-        window.whirlwinds[coin][instance] = whirlwind;
-      }
-
-      // If this is an ERC20, provide an instance
-      if (coin !== "bnb") {
-        window.erc20s[coin] = new web3.eth.Contract(
-          ERC20_RELEVANT_ABI,
-          deployments[coin].tokenAddress
-        );
-        window.erc20s[coin].decimals = deployments[coin].decimals;
-      }
-    }
-
-    // zk-SNARKS data
-    window.groth16 = await buildGroth16();
-    window.circuit = await (await fetch("/withdraw.json")).json();
-    window.proving_key = await (
-      await fetch("/withdraw_proving_key.bin")
-    ).arrayBuffer();
-  };
 
   return (
     <div className="connect-modal">

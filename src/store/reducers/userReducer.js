@@ -15,6 +15,7 @@ const UserReducer = (state, action) => {
         return { ...state };
       }
     case "UPDATE_CONNECTION":
+      console.log(payload);
       if (payload) {
         return {
           ...state,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //IMPORTING STYLESHEET
 
@@ -18,9 +18,13 @@ import ConnectWallet, { checkNetwork } from "../patterns/modals/connectWallet";
 
 const HomeScreen = () => {
   // INITIALIZING HOOKS
-  const [coin, setCoin] = React.useState();
-  const [amount, setAmount] = React.useState();
-  const [notes, setNotes] = React.useState();
+  const [coin, setCoin] = useState();
+  const [amount, setAmount] = useState();
+  const [notes, setNotes] = useState();
+  const [isSelectedBnb, setIsSelectedBnb] = useState(false);
+  const [isSelectedWind, setIsSelectedWind] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState();
+  const [isSelectedAmt, setIsSelectedAmt] = useState();
 
   //HANDLING METHODS
 
@@ -71,6 +75,21 @@ const HomeScreen = () => {
     setNotes(note);
   }
 
+  const handleBnb = () => {
+    setIsSelectedWind(false);
+    setIsSelectedBnb(true);
+    setSelectedCoin(0);
+    setIsSelectedAmt();
+  };
+
+  const handleWind = () => {
+    setIsSelectedWind(true);
+    setIsSelectedBnb(false);
+    setSelectedCoin(1);
+    setIsSelectedAmt();
+  };
+
+  console.log(selectedCoin);
   //INLINE STYLES
 
   const inlineStyle = {
@@ -133,24 +152,23 @@ const HomeScreen = () => {
   //RENDER WIND AMOUNTS
 
   const renderWINDAmounts = (
-    <select onChange={(e) => setData(e.target.value)}>
-      <option>1</option>
-      <option>10</option>
-      <option>100</option>
-      <option>1000</option>
-    </select>
+    <>
+      <span onClick={() => setIsSelectedAmt(0)}>1</span>
+      <span onClick={() => setIsSelectedAmt(1)}>10</span>
+      <span onClick={() => setIsSelectedAmt(2)}>100</span>
+      <span onClick={() => setIsSelectedAmt(3)}>1000</span>
+    </>
   );
-
+  console.log(isSelectedAmt);
   //RENDER BNB AMOUNT
 
   const renderBNBAmounts = (
-    <select onChange={(e) => setData(e.target.value)}>
-      <option>0.1</option>
-      <option>1</option>
-      <option>10</option>
-      <option>100</option>
-      <option>1000</option>
-    </select>
+    <>
+      <span onClick={() => setIsSelectedAmt(0)}>0.1</span>
+      <span onClick={() => setIsSelectedAmt(1)}>1</span>
+      <span onClick={() => setIsSelectedAmt(2)}>10</span>
+      <span onClick={() => setIsSelectedAmt(3)}>100</span>
+    </>
   );
 
   //RENDER NOTES
@@ -164,10 +182,38 @@ const HomeScreen = () => {
       <div className="block-left">
         <p className="txt-reg-16-txt-pri">Token </p>
         <div style={inlineStyle.flex} className="select-input">
-          <select onChange={(e) => setCoin(e.target.value)}>
+          {/* <select onChange={(e) => setCoin(e.target.value)}>
             <option>BNB</option>
             <option>WIND</option>
-          </select>
+          </select> */}
+          <div className="coin">
+            <p
+              className="title-b-16-txt-pri"
+              style={{
+                background: isSelectedBnb
+                  ? `linear-gradient(
+                  180deg
+                  , #00f2fe -24136%, #4facfe 48696%)`
+                  : null,
+              }}
+              onClick={() => handleBnb()}
+            >
+              Bnb
+            </p>
+            <p
+              className="title-b-16-txt-pri"
+              style={{
+                background: isSelectedWind
+                  ? `linear-gradient(
+                  180deg
+                  , #00f2fe -24136%, #4facfe 48696%)`
+                  : null,
+              }}
+              onClick={() => handleWind()}
+            >
+              Wind
+            </p>
+          </div>
           <div style={inlineStyle.flexGap}>
             <img src={info} alt="info" />
             <span
@@ -178,13 +224,26 @@ const HomeScreen = () => {
             </span>
           </div>
         </div>
-        <p style={inlineStyle.flexGap}>
+        <p
+          style={{
+            display: selectedCoin === undefined ? "none" : "flex",
+            gridGap: 10,
+            alignItems: "center",
+            opacity: selectedCoin === undefined ? "0" : "1",
+          }}
+        >
           <span className="txt-reg-16-txt-pri">Amount</span>
           <img src={info} alt="info" width={18} />
         </p>
-        <div className="amount-block">
-          {coin === "BNB" && renderBNBAmounts}
-          {coin === "WIND" && renderWINDAmounts}
+        <div
+          className="amount-block"
+          style={{
+            display: selectedCoin === undefined ? "none" : "grid",
+            opacity: selectedCoin === undefined ? "0" : "1",
+          }}
+        >
+          {selectedCoin === 0 && renderBNBAmounts}
+          {selectedCoin === 1 && renderWINDAmounts}
         </div>
         {renderNotes}
         <div style={inlineStyle.flexGap}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //IMPORTING STYLESHEET
 
@@ -29,7 +29,9 @@ const Header = () => {
 
   const renderLogo = (
     <div className="logo">
-      <img src={logo} alt="logo" width={"100%"} />
+      <Link to="/">
+        <img src={logo} alt="logo" width={"100%"} />
+      </Link>
     </div>
   );
 
@@ -63,9 +65,15 @@ const Header = () => {
   const renderNavbar = (
     <div className="navbar">
       {renderLinks}
-      <Button className="btn-primary" onClick={() => setIsConnectPopup(true)}>
-        Connect wallet
-      </Button>
+      {window.from ? (
+        <Button className="btn-primary">
+          {window.from.slice(window.from.length - 7)}...
+        </Button>
+      ) : (
+        <Button className="btn-primary" onClick={() => setIsConnectPopup(true)}>
+          Connect wallet
+        </Button>
+      )}
       {/* IF USER CONNECTED */}
       {/* <img src={avatar} alt="avatar" className="avatar" /> */}
       <img

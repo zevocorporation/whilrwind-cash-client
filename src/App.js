@@ -1,11 +1,11 @@
 //IMPORTING NPM PACKAGES
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //IMPORTING PATTRENS
 
 import { Header } from "./patterns";
-import { init } from "./utils/whirlwind";
+import { init, check } from "./patterns/modals/connectModal";
 
 //IMPORTING SCREENS
 
@@ -27,6 +27,29 @@ const App = () => {
   const [transactionState, transactionDispatch] = useReducer(
     TransactionReducer
   );
+
+  useEffect(() => {
+    isConnected();
+  }, [window.from]);
+
+  async function isConnected() {
+    window.from = (
+      await window.ethereum.request({
+        jsonrpc: "2.0",
+        method: "eth_requestAccounts",
+        id: null,
+      })
+    )[0];
+    UserDispatch({
+      type: "UPDATE_CONNECTION",
+      payload: {
+        address: window.from,
+      },
+    });
+    await init();
+    console.log("finished");
+  }
+
   const renderRoutes = (
     <Router>
       <Header />
