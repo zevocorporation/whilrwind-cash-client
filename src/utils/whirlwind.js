@@ -526,7 +526,7 @@ export const init = async () => {
   // Workaround for the Binance Wallet extension on Chrome, which has a significantly delayed loading time
   // Sleeps for up to a second to try to find it
   for (let i = 0; i < 10 && !window.BinanceChain; i++) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
   if (window.BinanceChain) {
     window.web3 = new Web3(window.BinanceChain);
