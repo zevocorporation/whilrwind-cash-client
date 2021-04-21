@@ -90,6 +90,7 @@ const HomeScreen = () => {
   };
 
   console.log(selectedCoin);
+  console.log(isSelectedAmt);
   //INLINE STYLES
 
   const inlineStyle = {
@@ -159,7 +160,7 @@ const HomeScreen = () => {
       <span onClick={() => setIsSelectedAmt(3)}>1000</span>
     </>
   );
-  console.log(isSelectedAmt);
+
   //RENDER BNB AMOUNT
 
   const renderBNBAmounts = (
