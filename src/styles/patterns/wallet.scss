@@ -42,6 +42,15 @@
       display: flex;
       flex-direction: column;
       grid-gap: 1em;
+
+      p:nth-child(1) {
+        font-weight: bold;
+        font-family: "Larsseit Bold";
+      }
+
+      p:nth-child(2) {
+        text-align: center;
+      }
     }
 
     .flex-end {

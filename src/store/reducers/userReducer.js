@@ -20,7 +20,8 @@ const UserReducer = (state, action) => {
         return {
           ...state,
           address: payload.address,
-          balance: payload.balance,
+          windBalance: payload.windBalance,
+          bnbBalance: payload.bnbBalance,
           isConnected: payload.isConnected,
         };
       } else {

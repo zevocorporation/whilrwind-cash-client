@@ -23,6 +23,7 @@ import { UserContext, TransactionContext } from "./store/contexts";
 import { UserReducer, TransactionReducer } from "./store/reducers";
 
 const App = () => {
+  const [userState, userDispatch] = useReducer(UserReducer);
   //RENDERING ROUTES
 
   const renderRoutes = (
@@ -50,13 +51,13 @@ const App = () => {
 
   return (
     <>
-      {/* <UserContext.Provider value={{ userState, UserDispatch }}>
-        <TransactionContext.Provider
+      <UserContext.Provider value={{ userState, userDispatch }}>
+        {/* <TransactionContext.Provider
           value={{ transactionState, transactionDispatch }}
         > */}
-      {renderRoutes}
-      {/* </TransactionContext.Provider> */}
-      {/* </UserContext.Provider> */}
+        {renderRoutes}
+        {/* </TransactionContext.Provider> */}
+      </UserContext.Provider>
     </>
   );
 };

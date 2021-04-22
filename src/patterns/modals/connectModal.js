@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 //IMPORTING STYLESHEETS
 
@@ -15,6 +15,10 @@ import buildGroth16 from "websnark/src/groth16";
 
 import metamask from "../../assets/images/metamask.png";
 import binanceLogo from "../../assets/images/binance.jpg";
+
+//IMPORTING STORE COMPONENTS
+
+import { UserContext } from "../../store/contexts/";
 
 //ERC20 WHIRLWIND ABI
 
@@ -173,7 +177,22 @@ export const WHIRLWIND_RELEVANT_ABI = [
   },
 ];
 
-//ON LOAD
+const balance = async () => {
+  let bnbBalance = await window.web3.eth.getBalance(window.from);
+  let wind = await new window.web3.eth.Contract(
+    ERC20_RELEVANT_ABI,
+    _deployments.netId56.wind.tokenAddress
+  );
+  let windBalance = await wind.methods.balanceOf(window.from).call();
+  console.log(bnbBalance, windBalance);
+  var result = {
+    bnbBalance,
+    windBalance,
+  };
+  return result;
+};
+
+// Load everything
 const init = async () => {
   // Load every Whirlwind
   window.window.whirlwinds = {};
@@ -225,6 +244,9 @@ const init = async () => {
     }
   }
 
+  //load Balance
+  // await balance();
+
   // zk-SNARKS data
   window.groth16 = await buildGroth16();
   window.circuit = await (await fetch("/withdraw.json")).json();
@@ -234,6 +256,7 @@ const init = async () => {
 };
 
 const ConnectModal = ({ setIsConnectPopup }) => {
+  const { userDispatch } = useContext(UserContext);
   //HANDLING BINANCE WALLET
 
   const handleBinance = async () => {
@@ -248,9 +271,23 @@ const ConnectModal = ({ setIsConnectPopup }) => {
       if (parseInt(window.BinanceChain.chainId) !== 56) {
         await window.BinanceChain.switchNetwork("bsc-mainnet");
       }
-      await init().catch(function (e) {
-        console.log(e);
-      });
+      await init()
+        .then(async (res) => {
+          //load Balance
+          console.log(res);
+        })
+        .catch(async function (e) {
+          console.log(e);
+          await balance().then((res) => {
+            userDispatch({
+              type: "UPDATE_CONNECTION",
+              payload: {
+                bnbBalance: res.bnbBalance,
+                windBalance: res.windBalance,
+              },
+            });
+          });
+        });
       setIsConnectPopup(false);
     } else {
       alert("Binance Wallet not detected.Install BinanceWallet and try again");
@@ -275,9 +312,23 @@ const ConnectModal = ({ setIsConnectPopup }) => {
         );
         throw "";
       }
-      await init().catch(function (e) {
-        console.log(e);
-      });
+      await init()
+        .then(async (res) => {
+          //load Balance
+          console.log(res);
+        })
+        .catch(async function (e) {
+          console.log(e);
+          await balance().then((res) => {
+            userDispatch({
+              type: "UPDATE_CONNECTION",
+              payload: {
+                bnbBalance: res.bnbBalance,
+                windBalance: res.windBalance,
+              },
+            });
+          });
+        });
       setIsConnectPopup(false);
     } else {
       alert("Metamask not detected.Install metamask wallet and try again");

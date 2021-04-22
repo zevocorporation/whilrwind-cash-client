@@ -68,7 +68,6 @@ export const deposit = async () => {
   const currency = pendingDeposit.currency;
   const amount = pendingDeposit.amount;
   const whirlwind = window.whirlwinds[currency][amount];
-  console.log(currency);
 
   let depositOpts = {
     from,
@@ -221,7 +220,7 @@ export const withdraw = async () => {
     await whirlwind.methods.withdraw(proof, ...args).send({
       from,
       gas: 500000,
-      gasPrice: web3.utils.toWei("10", "gwei"),
+      gasPrice: Web3.utils.toWei("10", "gwei"),
     });
     console.log("100%");
     return "Success!";
