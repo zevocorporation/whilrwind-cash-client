@@ -6,9 +6,11 @@ import "../styles/screens/home.scss";
 
 //IMPORTING PATTERNS
 
+import { NoteModal } from "../patterns/modals/modal";
 import { Footer, Wallet, Work } from "../patterns/";
 import { Button } from "../components";
 import { deposit, getNote } from "../utils/whirlwind";
+
 //IMPORTING MEDIA ASSETS
 
 import info from "../assets/icons/info.svg";
@@ -24,6 +26,7 @@ const HomeScreen = () => {
   const [isSelectedWind, setIsSelectedWind] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState();
   const [isSelectedAmt, setIsSelectedAmt] = useState();
+  const [isNoteModal, setIsNoteModal] = useState(false);
 
   //HANDLING METHODS
 
@@ -52,7 +55,7 @@ const HomeScreen = () => {
     if (selectedCoin !== undefined || isSelectedAmt !== undefined) {
       let note = getNote(selectedCoin, isSelectedAmt);
       setNotes(note);
-      console.log(note);
+      setIsNoteModal(true);
     } else {
       alert("Choose a coin and a amount for further proceeding");
     }
@@ -230,7 +233,6 @@ const HomeScreen = () => {
           {selectedCoin === 0 && renderBNBAmounts}
           {selectedCoin === 1 && renderWINDAmounts}
         </div>
-        {renderNotes}
         <div style={inlineStyle.flexGap}>
           <img src={hint} alt="hint" />
           <p style={{ width: "90%" }} className="txt-reg-14-txt-sec">
@@ -243,9 +245,9 @@ const HomeScreen = () => {
         <Button className="btn-primary" onClick={() => setData()}>
           Generate note
         </Button>
-        <Button className="btn-primary" onClick={() => proceedDeposit()}>
+        {/* <Button className="btn-primary" onClick={() => proceedDeposit()}>
           Deposit
-        </Button>
+        </Button> */}
       </div>
       {renderDetailsCard}
     </div>
@@ -271,6 +273,14 @@ const HomeScreen = () => {
   return (
     <>
       {renderHomeScreen}
+      {isNoteModal ? (
+        <NoteModal
+          note={notes}
+          setIsNoteModal={setIsNoteModal}
+          deposit={proceedDeposit}
+        />
+      ) : null}
+      {isNoteModal ? <div className="backdrop"></div> : null}
       <Work />
 
       <Footer />
