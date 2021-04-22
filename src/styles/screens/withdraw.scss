@@ -62,8 +62,17 @@
     background: #f4fbff;
     border: 0.5px solid rgba(177, 183, 188, 0.5);
     border-radius: 5px;
-    padding: 1.25em;
+    padding: 0.8em 1.25em;
     word-break: break-word;
+
+    input {
+      width: 100%;
+      height: 100%;
+      padding: 0.3em 0;
+      border: none;
+      outline: none;
+      background: transparent;
+    }
   }
 
   @media (max-width: 992px) {

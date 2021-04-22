@@ -9,6 +9,7 @@ import "../styles/screens/withdraw.scss";
 import { Footer, Wallet, Work } from "../patterns";
 import { Button } from "../components";
 import { getFullInfo } from "../utils/whirlwind";
+import { ProcessModal } from "../patterns/modals/modal";
 
 //IMPORTING MEDIA ASSETS
 
@@ -18,12 +19,15 @@ import uparrow from "../assets/icons/uparrow.svg";
 
 const ComplianceScreen = () => {
   const [notes, setNotes] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   //HANDLING METHODS
 
   const handleCompliance = async () => {
-    let result = await getFullInfo(notes).catch(function (res) {
+    setIsLoading(true);
+    await getFullInfo().catch((res) => {
       alert(res);
+      setIsLoading(false);
     });
   };
 
@@ -122,6 +126,8 @@ const ComplianceScreen = () => {
   return (
     <>
       {renderScreen}
+      {isLoading ? <ProcessModal variant="compliance" /> : null}
+      {isLoading ? <div className="backdrop"></div> : null}
       <Work />
       <Footer />
     </>
