@@ -168,25 +168,53 @@ const HomeScreen = () => {
     <>
       <span
         onClick={() => handleAmt(0)}
-        style={{ background: tab === 0 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 0
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         1
       </span>
       <span
         onClick={() => handleAmt(1)}
-        style={{ background: tab === 1 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 1
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         10
       </span>
       <span
         onClick={() => handleAmt(2)}
-        style={{ background: tab === 2 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 2
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         100
       </span>
       <span
         onClick={() => handleAmt(3)}
-        style={{ background: tab === 3 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 3
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         1000
       </span>
@@ -199,25 +227,53 @@ const HomeScreen = () => {
     <>
       <span
         onClick={() => handleAmt(0)}
-        style={{ background: tab === 0 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 0
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         0.1
       </span>
       <span
         onClick={() => handleAmt(1)}
-        style={{ background: tab === 1 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 1
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         1
       </span>
       <span
         onClick={() => handleAmt(2)}
-        style={{ background: tab === 2 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 2
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         10
       </span>
       <span
         onClick={() => handleAmt(3)}
-        style={{ background: tab === 3 ? "#fff" : "" }}
+        style={{
+          background:
+            tab === 3
+              ? `linear-gradient(
+          180deg
+          , #00f2fe -24136%, #4facfe 48696%)`
+              : "",
+        }}
       >
         100
       </span>
