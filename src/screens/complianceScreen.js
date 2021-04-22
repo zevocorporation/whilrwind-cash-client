@@ -10,6 +10,7 @@ import { Footer, Wallet, Work } from "../patterns";
 import { Button } from "../components";
 import { getFullInfo } from "../utils/whirlwind";
 import { ProcessModal } from "../patterns/modals/modal";
+import ConnectModal from "../patterns/modals/connectModal";
 
 //IMPORTING MEDIA ASSETS
 
@@ -20,6 +21,7 @@ import uparrow from "../assets/icons/uparrow.svg";
 const ComplianceScreen = () => {
   const [notes, setNotes] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [isConnectPopup, setIsConnectPopup] = useState(false);
 
   //HANDLING METHODS
 
@@ -103,9 +105,18 @@ const ComplianceScreen = () => {
             so that it won’t be possible to trace your transaction back to you.
           </p>
         </div>
-        <Button className="btn-primary" onClick={() => handleCompliance()}>
-          Get compliance info
-        </Button>
+        {window.from ? (
+          <Button className="btn-primary" onClick={() => handleCompliance()}>
+            Get compliance info
+          </Button>
+        ) : (
+          <Button
+            className="btn-primary"
+            onClick={() => setIsConnectPopup(true)}
+          >
+            Connect wallet
+          </Button>
+        )}
       </div>
       {/* {renderDetailsCard} */}
     </div>
@@ -127,7 +138,15 @@ const ComplianceScreen = () => {
     <>
       {renderScreen}
       {isLoading ? <ProcessModal variant="compliance" /> : null}
-      {isLoading ? <div className="backdrop"></div> : null}
+      {isLoading || isConnectPopup ? (
+        <div
+          className="backdrop"
+          onClick={() => setIsConnectPopup(false)}
+        ></div>
+      ) : null}
+      {isConnectPopup ? (
+        <ConnectModal setIsConnectPopup={setIsConnectPopup} />
+      ) : null}
       <Work />
       <Footer />
     </>

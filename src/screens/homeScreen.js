@@ -10,6 +10,7 @@ import { NoteModal, SuccessModal } from "../patterns/modals/modal";
 import { Footer, Wallet, Work } from "../patterns/";
 import { Button } from "../components";
 import { deposit, getNote } from "../utils/whirlwind";
+import ConnectModal from "../patterns/modals/connectModal";
 
 //IMPORTING MEDIA ASSETS
 
@@ -33,6 +34,7 @@ const HomeScreen = () => {
   const [isSuccess, setIssuccess] = useState(false);
   const [tab1, setTab1] = useState();
   const [tab2, setTab2] = useState();
+  const [isConnectPopup, setIsConnectPopup] = useState(false);
 
   // const handleDeposit = () => {
   //   console.warn("coin", coin);
@@ -368,9 +370,18 @@ const HomeScreen = () => {
             so that it won’t be possible to trace your transaction back to you.
           </p>
         </div>
-        <Button className="btn-primary" onClick={() => setData()}>
-          Generate note
-        </Button>
+        {window.from ? (
+          <Button className="btn-primary" onClick={() => setData()}>
+            Generate note
+          </Button>
+        ) : (
+          <Button
+            className="btn-primary"
+            onClick={() => setIsConnectPopup(true)}
+          >
+            Connect wallet
+          </Button>
+        )}
       </div>
       {/* {renderDetailsCard} */}
     </div>
@@ -405,8 +416,16 @@ const HomeScreen = () => {
           isError={isError}
         />
       ) : null}
-      {isNoteModal || isSuccess ? <div className="backdrop"></div> : null}
+      {isNoteModal || isSuccess || isConnectPopup ? (
+        <div
+          className="backdrop"
+          onClick={() => setIsConnectPopup(false)}
+        ></div>
+      ) : null}
       <SuccessModal setIssuccess={setIssuccess} isSuccess={isSuccess} />
+      {isConnectPopup ? (
+        <ConnectModal setIsConnectPopup={setIsConnectPopup} />
+      ) : null}
       <Work />
 
       <Footer />

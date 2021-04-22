@@ -9,6 +9,7 @@ import "../styles/screens/withdraw.scss";
 import { ProcessModal } from "../patterns/modals/modal";
 import { Footer, Wallet, Work } from "../patterns";
 import { Button } from "../components";
+import ConnectModal from "../patterns/modals/connectModal";
 
 //IMPORTING MEDIA ASSETS
 
@@ -30,6 +31,7 @@ const WithdrawScreen = () => {
   const [isError, setIsError] = useState(false);
   const [isMsg, setIsMsg] = useState(false);
   const [response, setResponse] = useState("");
+  const [isConnectPopup, setIsConnectPopup] = useState(false);
 
   //HANDLING METHODS
 
@@ -156,9 +158,18 @@ const WithdrawScreen = () => {
             so that it won’t be possible to trace your transaction back to you.
           </p>
         </div>
-        <Button className="btn-primary" onClick={() => handleWithdraw()}>
-          Withdrawal info
-        </Button>
+        {window.from ? (
+          <Button className="btn-primary" onClick={() => handleWithdraw()}>
+            Withdrawal info
+          </Button>
+        ) : (
+          <Button
+            className="btn-primary"
+            onClick={() => setIsConnectPopup(true)}
+          >
+            Connect wallet
+          </Button>
+        )}
       </div>
       {/* {renderDetailsCard} */}
     </div>
@@ -185,7 +196,12 @@ const WithdrawScreen = () => {
     <>
       {renderScreen}
       {isLoading ? <ProcessModal /> : null}
-      {isLoading || isMsg ? <div className="backdrop"></div> : null}
+      {isLoading || isMsg || isConnectPopup ? (
+        <div
+          className="backdrop"
+          onClick={() => setIsConnectPopup(false)}
+        ></div>
+      ) : null}
       {isError ? (
         <div className="error-popup">
           <img src={cross} alt="cross" />
@@ -196,6 +212,9 @@ const WithdrawScreen = () => {
         <div className="error-popup">
           <p>{response}</p>
         </div>
+      ) : null}
+      {isConnectPopup ? (
+        <ConnectModal setIsConnectPopup={setIsConnectPopup} />
       ) : null}
       <Work />
       <Footer />
