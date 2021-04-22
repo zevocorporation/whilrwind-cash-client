@@ -9,6 +9,7 @@ const Link = (props) => {
       to={props.to}
       className={props.className}
       onClick={props.onClick}
+      exact
       activeClassName={props.activeClassName}
     >
       {props.children}
