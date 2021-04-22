@@ -16,13 +16,11 @@ import ConnectModal from "../patterns/modals/connectModal";
 
 import info from "../assets/icons/info.svg";
 import hint from "../assets/icons/hint.svg";
-import downarrow from "../assets/icons/downarrow.svg";
+// import downarrow from "../assets/icons/downarrow.svg";
 
 const HomeScreen = () => {
   // INITIALIZING HOOKS
 
-  const [coin, setCoin] = useState();
-  const [amount, setAmount] = useState();
   const [notes, setNotes] = useState();
   const [isSelectedBnb, setIsSelectedBnb] = useState(false);
   const [isSelectedWind, setIsSelectedWind] = useState(false);
@@ -150,28 +148,28 @@ const HomeScreen = () => {
 
   //RENDER DETAILS CARD
 
-  const renderDetailsCard = (
-    <div className="block-right">
-      <div className="block-header">
-        <p className="title-b-24-txt-pri">Latest deposits</p>
-        <p className="txt-reg-14-txt-grad">see more</p>
-      </div>
-      <div className="transaction-card">
-        <div className="history">
-          <img src={downarrow} alt="downarrow" />
-          <span>0 ETH</span>
-          <span>address</span>
-          <span>2 mins ago</span>
-        </div>
-        <div className="history">
-          <img src={downarrow} alt="downarrow" />
-          <span>0 ETH</span>
-          <span>address</span>
-          <span>2 mins ago</span>
-        </div>
-      </div>
-    </div>
-  );
+  // const renderDetailsCard = (
+  //   <div className="block-right">
+  //     <div className="block-header">
+  //       <p className="title-b-24-txt-pri">Latest deposits</p>
+  //       <p className="txt-reg-14-txt-grad">see more</p>
+  //     </div>
+  //     <div className="transaction-card">
+  //       <div className="history">
+  //         <img src={downarrow} alt="downarrow" />
+  //         <span>0 ETH</span>
+  //         <span>address</span>
+  //         <span>2 mins ago</span>
+  //       </div>
+  //       <div className="history">
+  //         <img src={downarrow} alt="downarrow" />
+  //         <span>0 ETH</span>
+  //         <span>address</span>
+  //         <span>2 mins ago</span>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   //RENDER WIND AMOUNTS
 
@@ -290,10 +288,6 @@ const HomeScreen = () => {
       </span>
     </>
   );
-
-  //RENDER NOTES
-
-  const renderNotes = <p>{notes}</p>;
 
   //RENDER DETAILS
 

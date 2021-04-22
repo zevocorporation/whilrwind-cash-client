@@ -54,7 +54,7 @@ function fromDecimals(amount, decimals) {
 }
 
 function toDecimals(value, decimals, fixed) {
-  const zero = new web3.utils.BN(0);
+  // const zero = new web3.utils.BN(0);
   decimals = decimals || 18;
   fixed = fixed || 7;
 

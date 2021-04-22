@@ -21,7 +21,7 @@ function toHex(number, length = 32) {
 
 let web3 = window.web3;
 
-let BinanceChain = window.BinanceChain;
+// let BinanceChain = window.BinanceChain;
 let next = window.next;
 
 function createDeposit(nullifier, secret) {
@@ -531,7 +531,7 @@ export const init = async () => {
   window.window.whirlwinds = {};
   window.erc20s = {};
   let deployments = _deployments["netId56"];
-  let first = true;
+  // let first = true;
   for (let coin in deployments) {
     window.whirlwinds[coin] = {};
     for (const instance in deployments[coin].instanceAddress) {

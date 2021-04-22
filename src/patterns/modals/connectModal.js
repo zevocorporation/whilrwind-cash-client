@@ -198,7 +198,7 @@ const init = async () => {
   window.window.whirlwinds = {};
   window.erc20s = {};
   let deployments = _deployments["netId56"];
-  let first = true;
+  // let first = true;
   for (let coin in deployments) {
     window.whirlwinds[coin] = {};
     for (const instance in deployments[coin].instanceAddress) {
@@ -356,7 +356,7 @@ export default ConnectModal;
 export const ConnectWalletWarningModal = () => {
   return (
     <div className="warning-modal">
-      <img src={metamask} ait="metamask-logo" />
+      <img src={metamask} ait="metamask" />
       <p>Connect Wallet</p>
       <p>
         Connect your Metamask account to Whirlwind.Cash for continuing

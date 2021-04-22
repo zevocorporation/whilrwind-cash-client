@@ -16,7 +16,7 @@ import ConnectModal from "../patterns/modals/connectModal";
 import info from "../assets/icons/info.svg";
 import hint from "../assets/icons/hint.svg";
 import cross from "../assets/icons/cross.svg";
-import uparrow from "../assets/icons/uparrow.svg";
+// import uparrow from "../assets/icons/uparrow.svg";
 
 //IMPORTING UTILITY PACKAGES
 
@@ -25,7 +25,6 @@ import { getWithdrawInfo, withdraw } from "../utils/whirlwind";
 const WithdrawScreen = () => {
   //INITILIZING HOOKS
 
-  const [state, setState] = useState(false);
   const [notes, setNotes] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -38,7 +37,7 @@ const WithdrawScreen = () => {
   const handleWithdraw = async () => {
     console.log(notes);
     if (notes !== undefined) {
-      let result = getWithdrawInfo(notes);
+      getWithdrawInfo(notes);
       setIsLoading(true);
       await withdraw()
         .then((res) => {
@@ -60,12 +59,6 @@ const WithdrawScreen = () => {
           // }, 3000);
         });
     }
-  };
-
-  const finishWithdraw = async () => {
-    // .catch(function (result) {
-    //   alert(result);
-    // });
   };
 
   //INLINE STYLES
@@ -102,22 +95,22 @@ const WithdrawScreen = () => {
     </div>
   );
 
-  const renderDetailsCard = (
-    <div className="block-right">
-      <div style={inlineStyle.flex}>
-        <p className="title-b-24-txt-pri">Latest deposits</p>
-        <p className="txt-reg-14-txt-grad">see more</p>
-      </div>
-      <div className="transaction-card">
-        <div className="history">
-          <img src={uparrow} alt="uparrow" />
-          <span>0 ETH</span>
-          <span>address</span>
-          <span>2 mins</span>
-        </div>
-      </div>
-    </div>
-  );
+  // const renderDetailsCard = (
+  //   <div className="block-right">
+  //     <div style={inlineStyle.flex}>
+  //       <p className="title-b-24-txt-pri">Latest deposits</p>
+  //       <p className="txt-reg-14-txt-grad">see more</p>
+  //     </div>
+  //     <div className="transaction-card">
+  //       <div className="history">
+  //         <img src={uparrow} alt="uparrow" />
+  //         <span>0 ETH</span>
+  //         <span>address</span>
+  //         <span>2 mins</span>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   //RENDERING DETAILS
 

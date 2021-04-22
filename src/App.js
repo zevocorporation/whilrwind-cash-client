@@ -1,11 +1,11 @@
 //IMPORTING NPM PACKAGES
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //IMPORTING PATTRENS
 
 import { Header } from "./patterns";
-import { init, check } from "./patterns/modals/connectModal";
+// import { init, check } from "./patterns/modals/connectModal";
 
 //IMPORTING SCREENS
 
@@ -19,8 +19,8 @@ import {
 
 //IMPORTING STORE COMPONENTS
 
-import { UserContext, TransactionContext } from "./store/contexts";
-import { UserReducer, TransactionReducer } from "./store/reducers";
+import { UserContext } from "./store/contexts";
+import { UserReducer } from "./store/reducers";
 
 const App = () => {
   const [userState, userDispatch] = useReducer(UserReducer);
