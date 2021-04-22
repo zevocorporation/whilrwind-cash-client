@@ -30,7 +30,8 @@ const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIssuccess] = useState(false);
-  const [tab, setTab] = useState();
+  const [tab1, setTab1] = useState();
+  const [tab2, setTab2] = useState();
 
   //HANDLING METHODS
 
@@ -98,9 +99,14 @@ const HomeScreen = () => {
   console.log(selectedCoin, "1");
   console.log(isSelectedAmt);
 
-  const handleAmt = (amt) => {
+  const handleBnbAmt = (amt) => {
     setIsSelectedAmt(amt);
-    setTab(amt);
+    setTab1(amt);
+  };
+
+  const handleWindAmt = (amt) => {
+    setIsSelectedAmt(amt);
+    setTab2(amt);
   };
 
   //INLINE STYLES
@@ -167,10 +173,10 @@ const HomeScreen = () => {
   const renderWINDAmounts = (
     <>
       <span
-        onClick={() => handleAmt(0)}
+        onClick={() => handleWindAmt(0)}
         style={{
           background:
-            tab === 0
+            tab2 === 0
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`
@@ -180,10 +186,10 @@ const HomeScreen = () => {
         1
       </span>
       <span
-        onClick={() => handleAmt(1)}
+        onClick={() => handleWindAmt(1)}
         style={{
           background:
-            tab === 1
+            tab2 === 1
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`
@@ -193,10 +199,10 @@ const HomeScreen = () => {
         10
       </span>
       <span
-        onClick={() => handleAmt(2)}
+        onClick={() => handleWindAmt(2)}
         style={{
           background:
-            tab === 2
+            tab2 === 2
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`
@@ -206,10 +212,10 @@ const HomeScreen = () => {
         100
       </span>
       <span
-        onClick={() => handleAmt(3)}
+        onClick={() => handleWindAmt(3)}
         style={{
           background:
-            tab === 3
+            tab2 === 3
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`
@@ -226,10 +232,10 @@ const HomeScreen = () => {
   const renderBNBAmounts = (
     <>
       <span
-        onClick={() => handleAmt(0)}
+        onClick={() => handleBnbAmt(0)}
         style={{
           background:
-            tab === 0
+            tab1 === 0
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`
@@ -239,10 +245,10 @@ const HomeScreen = () => {
         0.1
       </span>
       <span
-        onClick={() => handleAmt(1)}
+        onClick={() => handleBnbAmt(1)}
         style={{
           background:
-            tab === 1
+            tab1 === 1
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`
@@ -252,10 +258,10 @@ const HomeScreen = () => {
         1
       </span>
       <span
-        onClick={() => handleAmt(2)}
+        onClick={() => handleBnbAmt(2)}
         style={{
           background:
-            tab === 2
+            tab1 === 2
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`
@@ -265,10 +271,10 @@ const HomeScreen = () => {
         10
       </span>
       <span
-        onClick={() => handleAmt(3)}
+        onClick={() => handleBnbAmt(3)}
         style={{
           background:
-            tab === 3
+            tab1 === 3
               ? `linear-gradient(
           180deg
           , #00f2fe -24136%, #4facfe 48696%)`

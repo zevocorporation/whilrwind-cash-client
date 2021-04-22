@@ -43,6 +43,15 @@
   display: flex;
   align-items: center;
   grid-gap: 1.5em;
+
+  img {
+    transition: 0.2s all;
+
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.2s all;
+    }
+  }
 }
 
 .footer .copyright {

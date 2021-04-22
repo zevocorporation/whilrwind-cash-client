@@ -1,79 +1,84 @@
 @import "../../index.scss";
 
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 90px;
-    background: #FFFFFF;
-    box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
-    margin-bottom: 2em;
-    padding: 0 50px;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 90px;
+  background: #ffffff;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  margin-bottom: 2em;
+  padding: 0 50px;
 
-    @media (max-width:768px) {
-        padding: 0 30px;
-    }
-    @media (max-width:576px) {
-        padding: 0 1em;
-    }
+  @media (max-width: 768px) {
+    padding: 0 30px;
+  }
+  @media (max-width: 576px) {
+    padding: 0 1em;
+  }
 }
 
-.header .logo{
-    width: 13em;
+.header .logo {
+  width: 13em;
 }
 
-.header .navbar{
-    display: flex;
-    align-items: center;
-    grid-gap: 2em;
+.header .navbar {
+  display: flex;
+  align-items: center;
+  grid-gap: 2em;
 
-    .menu{
-        display: none;
+  .menu {
+    display: none;
 
-        @media (max-width:768px) {
-            display: block;
-        }
+    @media (max-width: 768px) {
+      display: block;
     }
+  }
 
-    button{
-        @media (max-width:576px) {
-            display: none;
-        }
+  button {
+    @media (max-width: 576px) {
+      display: none;
     }
-    .avatar{
-        width: 37px;
-        height: 37px;
-        @media (max-width:576px) {
-            display: none;
-        }
+  }
+  .avatar {
+    width: 37px;
+    height: 37px;
+    @media (max-width: 576px) {
+      display: none;
     }
+  }
 }
 
-.header .navbar nav{
+.header .navbar nav {
+  display: flex;
+  align-items: center;
+  grid-gap: 2em;
+
+  .link.active span {
+    color: #000;
+  }
+
+  .link {
+    list-style: none;
     display: flex;
     align-items: center;
-    grid-gap: 2em;
+    grid-gap: 0.75em;
+  }
+  .link span {
+    color: $secondary;
+    transition: 0.2s all;
 
-    .link.active span{
-        color: #000;
+    &:hover {
+      color: turquoise;
     }
+  }
 
-    .link{
-        list-style: none;
-        display: flex;
-        align-items: center;
-        grid-gap: 0.75em;
-    }
-    .link span{
-        color: $secondary;
-    }
+  @media (max-width: 992px) {
+    grid-gap: 1em;
+  }
 
-    @media (max-width:992px) {
-        grid-gap: 1em;
-    }
-
-    @media (max-width:768px) {
-        display: none;
-    }
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
