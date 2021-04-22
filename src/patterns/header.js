@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 //IMPORTING STYLESHEET
 
@@ -7,6 +7,8 @@ import "../styles/patterns/header.scss";
 //IMPORTING COMPONENTS
 
 import { Button, Link } from "../components";
+
+//IMPORTING PATTERNS
 
 import { Sidebar } from "./";
 
@@ -19,9 +21,10 @@ import activity from "../assets/icons/activity.svg";
 import menu from "../assets/icons/menu.svg";
 import logo from "../assets/logo/logo.png";
 import ConnectModal from "./modals/connectModal";
-// import avatar from '../assets/images/avatar.svg'
 
 const Header = () => {
+  //INITIALIZING HOOKS
+
   const [isSidebar, setIsSidebar] = useState(false);
   const [isConnectPopup, setIsConnectPopup] = useState(false);
 

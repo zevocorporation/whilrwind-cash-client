@@ -19,6 +19,7 @@ import downarrow from "../assets/icons/downarrow.svg";
 
 const HomeScreen = () => {
   // INITIALIZING HOOKS
+
   const [coin, setCoin] = useState();
   const [amount, setAmount] = useState();
   const [notes, setNotes] = useState();
@@ -33,16 +34,16 @@ const HomeScreen = () => {
   const [tab1, setTab1] = useState();
   const [tab2, setTab2] = useState();
 
-  //HANDLING METHODS
+  // const handleDeposit = () => {
+  //   console.warn("coin", coin);
+  //   console.warn("amount", amount);
+  //   let notes = "Initial dummy note";
+  //   // web3 generating notes
 
-  const handleDeposit = () => {
-    console.warn("coin", coin);
-    console.warn("amount", amount);
-    let notes = "Initial dummy note";
-    // web3 generating notes
+  //   setNotes(notes);
+  // };
 
-    setNotes(notes);
-  };
+  //HANDLING DEPOSIT METHODS
 
   async function proceedDeposit() {
     if (notes !== undefined) {
@@ -87,6 +88,7 @@ const HomeScreen = () => {
     setIsSelectedBnb(true);
     setSelectedCoin(0);
     setIsSelectedAmt();
+    setTab1();
   };
 
   const handleWind = () => {
@@ -94,6 +96,7 @@ const HomeScreen = () => {
     setIsSelectedBnb(false);
     setSelectedCoin(1);
     setIsSelectedAmt();
+    setTab2();
   };
 
   console.log(selectedCoin, "1");
@@ -410,5 +413,7 @@ const HomeScreen = () => {
     </>
   );
 };
+
+//EXPORTING SCREENS
 
 export default HomeScreen;

@@ -17,6 +17,8 @@ import hint from "../assets/icons/hint.svg";
 import cross from "../assets/icons/cross.svg";
 import uparrow from "../assets/icons/uparrow.svg";
 
+//IMPORTING UTILITY PACKAGES
+
 import { getWithdrawInfo, withdraw } from "../utils/whirlwind";
 
 const WithdrawScreen = () => {
@@ -80,6 +82,8 @@ const WithdrawScreen = () => {
     },
   };
 
+  //RENDERING INFO
+
   const renderInfo = (
     <div
       style={{
@@ -112,6 +116,8 @@ const WithdrawScreen = () => {
       </div>
     </div>
   );
+
+  //RENDERING DETAILS
 
   const renderDetails = (
     <div className="details-block">
@@ -158,6 +164,8 @@ const WithdrawScreen = () => {
     </div>
   );
 
+  //RENDERING SCREEN
+
   const renderScreen = (
     <div className="withdraw-screen">
       {renderInfo}
@@ -194,5 +202,7 @@ const WithdrawScreen = () => {
     </>
   );
 };
+
+//EXPORTING SCREENS
 
 export default WithdrawScreen;

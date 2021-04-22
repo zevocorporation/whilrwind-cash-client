@@ -46,7 +46,10 @@ export const NoteModal = ({
   isLoading,
   isError,
 }) => {
+  //INITIALIZING HOOKS
+
   const [toast, setToast] = useState(false);
+
   //HANDLING METHODS
 
   const handleCopy = () => {
@@ -66,6 +69,8 @@ export const NoteModal = ({
       gridGap: 16,
     },
   };
+
+  //RENDERING MODAL
 
   const renderNoteModal = (
     <>
@@ -106,6 +111,8 @@ export const NoteModal = ({
     </>
   );
 
+  //RENDERING LOADER
+
   const renderLoader = (
     <div className="loader">
       <img src={loader} alt="loader" />
@@ -118,6 +125,8 @@ export const NoteModal = ({
       </div>
     </div>
   );
+
+  //REDNERING ERROR
 
   const renderError = (
     <div className="error">
@@ -134,6 +143,8 @@ export const NoteModal = ({
 };
 
 export const ProcessModal = () => {
+  //RENDERING LOADER
+
   const renderLoader = (
     <div className="loader">
       <img src={loader} alt="loader" />

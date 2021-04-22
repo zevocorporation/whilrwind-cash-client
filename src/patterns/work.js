@@ -11,6 +11,8 @@ import transferImg from "../assets/images/transfer.svg";
 import withdrawImg from "../assets/images/withdraw.svg";
 
 const Work = () => {
+  //RENDERING CARDS
+
   const renderWorkcard = (
     <>
       <p

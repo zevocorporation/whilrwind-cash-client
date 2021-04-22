@@ -23,6 +23,8 @@ import { UserContext, TransactionContext } from "./store/contexts";
 import { UserReducer, TransactionReducer } from "./store/reducers";
 
 const App = () => {
+  //RENDERING ROUTES
+
   const renderRoutes = (
     <Router>
       <Header />
@@ -45,6 +47,7 @@ const App = () => {
       </Switch>
     </Router>
   );
+
   return (
     <>
       {/* <UserContext.Provider value={{ userState, UserDispatch }}>

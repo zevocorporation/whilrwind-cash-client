@@ -16,6 +16,8 @@ import buildGroth16 from "websnark/src/groth16";
 import metamask from "../../assets/images/metamask.png";
 import binanceLogo from "../../assets/images/binance.jpg";
 
+//ERC20 WHIRLWIND ABI
+
 export const ERC20_RELEVANT_ABI = [
   {
     constant: true,
@@ -52,7 +54,7 @@ export const ERC20_RELEVANT_ABI = [
   },
 ];
 
-// Relevant parts of the Whirlwind ABI.
+//RELEVANT PARTS OF THE WHIRLWIND ABI
 export const WHIRLWIND_RELEVANT_ABI = [
   {
     anonymous: false,
@@ -171,7 +173,7 @@ export const WHIRLWIND_RELEVANT_ABI = [
   },
 ];
 
-// Load everything
+//ON LOAD
 const init = async () => {
   // Load every Whirlwind
   window.window.whirlwinds = {};
@@ -230,8 +232,6 @@ const init = async () => {
     await fetch("/withdraw_proving_key.bin")
   ).arrayBuffer();
 };
-
-//Check if already connected
 
 const ConnectModal = ({ setIsConnectPopup }) => {
   //HANDLING BINANCE WALLET

@@ -1,3 +1,5 @@
+//INITIALIZING FONT STYLE
+
 @font-face {
   font-family: "Larsseit bold";
   src: url(./assets/fonts/Larsseit-Bold.ttf);
@@ -23,11 +25,15 @@
   src: url(./assets/fonts/Larsseit-Light.ttf);
 }
 
+//INITIALIZING FONT FAMILY
+
 $font-bold: "Larsseit bold";
 $font-medium: "Larsseit medium";
 $font-italic: "Larsseit italic";
 $font-light: "Larsseit light";
 $font-regular: "Larsseit regular";
+
+//INITIALIZING COLORS
 
 $primary: #4facfe;
 $secondary: #999999;

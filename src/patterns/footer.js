@@ -18,6 +18,8 @@ import twitch from "../assets/icons/social icons/twitch.svg";
 import logotext from "../assets/logo/logotext.png";
 
 const Footer = () => {
+  //RENDERING ICONS
+
   const renderIcons = (
     <div className="icons">
       <Link to="/">
@@ -38,6 +40,8 @@ const Footer = () => {
     </div>
   );
 
+  //RENDERING LOGO
+
   const renderLogo = (
     <div className="footer-logo">
       <img src={logotext} alt="logo" />
@@ -48,12 +52,15 @@ const Footer = () => {
     </div>
   );
 
+  //RENDERING COPYRIGHTS
+
   const renderCopyrights = (
     <div className="copyright">
       <p>Copyright © 2010-2021 Whirlwind.Cash. All rights reserved.</p>
       <p>Built & Managed by ZEVO Corporation</p>
     </div>
   );
+
   return (
     <div className="footer">
       {renderLogo}

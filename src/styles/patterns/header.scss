@@ -67,11 +67,6 @@
   }
   .link span {
     color: $secondary;
-    transition: 0.2s all;
-
-    &:hover {
-      color: turquoise;
-    }
   }
 
   @media (max-width: 992px) {

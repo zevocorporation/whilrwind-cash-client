@@ -40,6 +40,8 @@ const ActivityScreen = () => {
     "Done!",
   ];
 
+  //RENDERING INFO
+
   const renderInfo = (
     <div
       style={{
@@ -55,6 +57,8 @@ const ActivityScreen = () => {
       </p>
     </div>
   );
+
+  //RENDERING TRANSACTION DETAILS
 
   const renderTransactionDetails = (
     <div className="transaction-history">
@@ -81,6 +85,8 @@ const ActivityScreen = () => {
     </div>
   );
 
+  //RENDERING RESOURCES
+
   const renderResources = (
     <div className="resources">
       <p className="title-b-24-txt-pri">Resources</p>
@@ -106,6 +112,8 @@ const ActivityScreen = () => {
       </ul>
     </div>
   );
+
+  //RENDERING SCREEN
 
   const renderScreen = (
     <div className="activity-screen">
@@ -138,5 +146,7 @@ const ActivityScreen = () => {
     </>
   );
 };
+
+//EXPORTING SCREENS
 
 export default ActivityScreen;
