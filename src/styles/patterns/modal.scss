@@ -51,12 +51,22 @@ fixedCenter {
   }
   .note-block {
     position: relative;
+    cursor: pointer;
 
     .toast {
       position: absolute;
       top: 100%;
       right: 0;
-      background: violet;
+      background: #fff;
+      color: #9aaa3a;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      grid-gap: 0.5em;
+
+      img {
+        width: 14px;
+      }
     }
   }
 

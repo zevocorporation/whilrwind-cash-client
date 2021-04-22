@@ -107,7 +107,7 @@ const ComplianceScreen = () => {
           Get compliance info
         </Button>
       </div>
-      {renderDetailsCard}
+      {/* {renderDetailsCard} */}
     </div>
   );
 

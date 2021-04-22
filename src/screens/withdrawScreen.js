@@ -32,28 +32,30 @@ const WithdrawScreen = () => {
   //HANDLING METHODS
 
   const handleWithdraw = async () => {
-    let result = getWithdrawInfo(notes);
-    setIsLoading(true);
-    console.log(result);
-    await withdraw()
-      .then((res) => {
-        console.log(res);
-        setResponse(res);
-        setIsLoading(false);
-        setIsMsg(true);
-        setTimeout(() => {
-          setIsMsg(false);
-        }, 3000);
-      })
-      .catch((error) => {
-        console.log(error);
-        setResponse({ err: error });
-        setIsError(true);
-        // setTimeout(() => {
-        //   setIsLoading(false);
-        //   setIsError(false);
-        // }, 3000);
-      });
+    console.log(notes);
+    if (notes !== undefined) {
+      let result = getWithdrawInfo(notes);
+      setIsLoading(true);
+      await withdraw()
+        .then((res) => {
+          console.log(res);
+          setResponse(res);
+          setIsLoading(false);
+          setIsMsg(true);
+          setTimeout(() => {
+            setIsMsg(false);
+          }, 3000);
+        })
+        .catch((error) => {
+          console.log(error);
+          setResponse({ err: error });
+          setIsError(true);
+          // setTimeout(() => {
+          //   setIsLoading(false);
+          //   setIsError(false);
+          // }, 3000);
+        });
+    }
   };
 
   const finishWithdraw = async () => {
@@ -121,7 +123,7 @@ const WithdrawScreen = () => {
         <div className="txt-reg-14-txt-pri note">
           <input type="text" onChange={(e) => setNotes(e.target.value)} />
         </div>
-        <p style={inlineStyle.flexGap}>
+        {/* <p style={inlineStyle.flexGap}>
           <span className="txt-reg-16-txt-pri">Recipient</span>
           <img src={info} alt="info" />
         </p>
@@ -138,7 +140,7 @@ const WithdrawScreen = () => {
               0xDD4c48C0B24039969fC16D1cdF626eaB821d3384
             </div>
           </>
-        ) : null}
+        ) : null} */}
         <div style={inlineStyle.flexGap}>
           <img src={hint} alt="hint" />
           <p style={{ width: "90%" }} className="txt-reg-14-txt-sec">
@@ -152,7 +154,7 @@ const WithdrawScreen = () => {
           Withdrawal info
         </Button>
       </div>
-      {renderDetailsCard}
+      {/* {renderDetailsCard} */}
     </div>
   );
 

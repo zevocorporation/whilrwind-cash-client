@@ -14,6 +14,7 @@ import sucesss from "../../assets/images/depositsuccess.svg";
 import close from "../../assets/icons/close.svg";
 import copy from "../../assets/icons/copy.svg";
 import cross from "../../assets/icons/cross.svg";
+import tick from "../../assets/icons/tick.svg";
 import loader from "../../assets/loader/loader.gif";
 
 export const SuccessModal = ({ isSuccess, setIssuccess }) => {
@@ -53,7 +54,7 @@ export const NoteModal = ({
     setToast(true);
     setTimeout(() => {
       setToast(false);
-    }, 2000);
+    }, 1000);
   };
 
   //INLINE STYLES
@@ -88,7 +89,12 @@ export const NoteModal = ({
           <img src={copy} alt="copy" />
           <span>Copy to clipboard</span>
         </p>
-        {toast ? <div className="toast">copied</div> : null}
+        {toast ? (
+          <div className="toast">
+            <img src={tick} alt="tick" />
+            <p>Copied to clipboard</p>
+          </div>
+        ) : null}
       </div>
       <p style={inlineStyle.flex}>
         <input type="checkbox" />

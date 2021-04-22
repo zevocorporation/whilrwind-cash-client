@@ -235,10 +235,6 @@ const HomeScreen = () => {
       <div className="block-left">
         <p className="txt-reg-16-txt-pri">Token </p>
         <div style={inlineStyle.flex} className="select-input">
-          {/* <select onChange={(e) => setCoin(e.target.value)}>
-            <option>BNB</option>
-            <option>WIND</option>
-          </select> */}
           <div className="coin">
             <p
               className="title-b-16-txt-pri"
@@ -311,7 +307,7 @@ const HomeScreen = () => {
           Generate note
         </Button>
       </div>
-      {renderDetailsCard}
+      {/* {renderDetailsCard} */}
     </div>
   );
 
