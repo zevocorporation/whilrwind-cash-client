@@ -30,6 +30,7 @@ const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIssuccess] = useState(false);
+  const [tab, setTab] = useState();
 
   //HANDLING METHODS
 
@@ -97,6 +98,11 @@ const HomeScreen = () => {
   console.log(selectedCoin, "1");
   console.log(isSelectedAmt);
 
+  const handleAmt = (amt) => {
+    setIsSelectedAmt(amt);
+    setTab(amt);
+  };
+
   //INLINE STYLES
 
   const inlineStyle = {
@@ -160,10 +166,30 @@ const HomeScreen = () => {
 
   const renderWINDAmounts = (
     <>
-      <span onClick={() => setIsSelectedAmt(0)}>1</span>
-      <span onClick={() => setIsSelectedAmt(1)}>10</span>
-      <span onClick={() => setIsSelectedAmt(2)}>100</span>
-      <span onClick={() => setIsSelectedAmt(3)}>1000</span>
+      <span
+        onClick={() => handleAmt(0)}
+        style={{ background: tab === 0 ? "#fff" : "" }}
+      >
+        1
+      </span>
+      <span
+        onClick={() => handleAmt(1)}
+        style={{ background: tab === 1 ? "#fff" : "" }}
+      >
+        10
+      </span>
+      <span
+        onClick={() => handleAmt(2)}
+        style={{ background: tab === 2 ? "#fff" : "" }}
+      >
+        100
+      </span>
+      <span
+        onClick={() => handleAmt(3)}
+        style={{ background: tab === 3 ? "#fff" : "" }}
+      >
+        1000
+      </span>
     </>
   );
 
@@ -171,10 +197,30 @@ const HomeScreen = () => {
 
   const renderBNBAmounts = (
     <>
-      <span onClick={() => setIsSelectedAmt(0)}>0.1</span>
-      <span onClick={() => setIsSelectedAmt(1)}>1</span>
-      <span onClick={() => setIsSelectedAmt(2)}>10</span>
-      <span onClick={() => setIsSelectedAmt(3)}>100</span>
+      <span
+        onClick={() => handleAmt(0)}
+        style={{ background: tab === 0 ? "#fff" : "" }}
+      >
+        0.1
+      </span>
+      <span
+        onClick={() => handleAmt(1)}
+        style={{ background: tab === 1 ? "#fff" : "" }}
+      >
+        1
+      </span>
+      <span
+        onClick={() => handleAmt(2)}
+        style={{ background: tab === 2 ? "#fff" : "" }}
+      >
+        10
+      </span>
+      <span
+        onClick={() => handleAmt(3)}
+        style={{ background: tab === 3 ? "#fff" : "" }}
+      >
+        100
+      </span>
     </>
   );
 

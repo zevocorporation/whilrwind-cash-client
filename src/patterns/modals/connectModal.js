@@ -14,6 +14,7 @@ import buildGroth16 from "websnark/src/groth16";
 //IMPORTING MEDIA ASSETS
 
 import metamask from "../../assets/images/metamask.png";
+import binanceLogo from "../../assets/images/binance.jpg";
 
 export const ERC20_RELEVANT_ABI = [
   {
@@ -287,9 +288,14 @@ const ConnectModal = ({ setIsConnectPopup }) => {
 
   return (
     <div className="connect-modal">
-      <Button onClick={() => handleBinance()}>Binance</Button>
-      <Button onClick={() => handleMetamask()}>Metamask</Button>
-      <span onClick={() => setIsConnectPopup(false)}>Close</span>
+      <div onClick={() => handleBinance()}>
+        <img src={binanceLogo} alt="binance" />
+        <p>Binance</p>
+      </div>
+      <div onClick={() => handleMetamask()}>
+        <img src={metamask} alt="metamask" />
+        <p>Metamask</p>
+      </div>
     </div>
   );
 };

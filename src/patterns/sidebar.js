@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //IMPORTING STYLESHEET
 
@@ -14,12 +14,17 @@ import deposit from "../assets/icons/deposit.svg";
 import withdraw from "../assets/icons/withdraw.svg";
 import compliance from "../assets/icons/compliance.svg";
 import activity from "../assets/icons/activity.svg";
-import avatar from "../assets/images/avatar.svg";
+import ConnectModal from "./modals/connectModal";
 
 const Sidebar = ({ isSidebar, setIsSidebar }) => {
+  const [isConnectPopup, setIsConnectPopup] = useState(false);
+
   //HANDLING METHODS
 
-  const handleConnect = () => {};
+  const handleConnect = () => {
+    setIsSidebar(false);
+    setIsConnectPopup(true);
+  };
 
   //RENDERING LINKS
 
@@ -45,20 +50,31 @@ const Sidebar = ({ isSidebar, setIsSidebar }) => {
   );
 
   return (
-    <div
-      className="sidebar"
-      style={{
-        right: isSidebar ? "5%" : "-100%",
-      }}
-    >
-      {renderLinks}
-      <div className="user-connected">
-        <Button className="btn-primary" onClick={() => handleConnect()}>
-          Connect Wallet
-        </Button>
-        <img src={avatar} className="sidebar-avatar" alt="avatar" />
+    <>
+      <div
+        className="sidebar"
+        style={{
+          right: isSidebar ? "5%" : "-100%",
+        }}
+      >
+        {renderLinks}
+        <div className="user-connected">
+          {window.from ? (
+            <Button className="btn-primary">
+              {window.from.slice(window.from.length - 7)}...
+            </Button>
+          ) : (
+            <Button className="btn-primary" onClick={() => handleConnect()}>
+              Connect wallet
+            </Button>
+          )}
+        </div>
       </div>
-    </div>
+
+      {isConnectPopup ? (
+        <ConnectModal setIsConnectPopup={setIsConnectPopup} />
+      ) : null}
+    </>
   );
 };
 

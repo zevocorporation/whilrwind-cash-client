@@ -95,6 +95,12 @@ const Header = () => {
       {isConnectPopup ? (
         <ConnectModal setIsConnectPopup={setIsConnectPopup} />
       ) : null}
+      {isConnectPopup ? (
+        <div
+          className="backdrop"
+          onClick={() => setIsConnectPopup(false)}
+        ></div>
+      ) : null}
     </>
   );
 };
