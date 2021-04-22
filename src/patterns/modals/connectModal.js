@@ -171,6 +171,16 @@ export const WHIRLWIND_RELEVANT_ABI = [
   },
 ];
 
+const balance = async () => {
+  let bnbBalance = await window.web3.eth.getBalance(window.from);
+  let wind = await new window.web3.eth.Contract(
+    ERC20_RELEVANT_ABI,
+    _deployments.netId56.wind.tokenAddress
+  );
+  let windBalance = await wind.methods.balanceOf(window.from).call();
+  console.log(bnbBalance, windBalance);
+};
+
 // Load everything
 const init = async () => {
   // Load every Whirlwind
@@ -222,6 +232,9 @@ const init = async () => {
       window.erc20s[coin].decimals = deployments[coin].decimals;
     }
   }
+
+  //load Balance
+  await balance();
 
   // zk-SNARKS data
   window.groth16 = await buildGroth16();
