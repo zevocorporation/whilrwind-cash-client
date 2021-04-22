@@ -1,24 +1,30 @@
 @import "../../index.scss";
 
-.work-card{
-    width: 100%;   
-    background: #FFFFFF;
-    box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
-    border-radius: 5px;
+.work-card {
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  border-radius: 5px;
+  padding: 1.25em;
+  transition: 0.3s all;
+
+  &:hover {
+    transform: translateY(-10px);
+    transition: 0.3s all;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 576px) {
     padding: 1.25em;
-
-    @media (max-width:768px) {
-        padding: 10px;
-    }
-
-    @media (max-width:576px) {
-        padding: 1.25em;
-    }
+  }
 }
 
-.card-details{
-    background: #FFFFFF;
-    box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
-    border-radius: 5px;
-    padding: 1.5em 1em;
+.card-details {
+  background: #ffffff;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  border-radius: 5px;
+  padding: 1.5em 1em;
 }

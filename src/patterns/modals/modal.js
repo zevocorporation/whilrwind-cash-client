@@ -13,22 +13,38 @@ import { Button } from "../../components";
 import sucesss from "../../assets/images/depositsuccess.svg";
 import close from "../../assets/icons/close.svg";
 import copy from "../../assets/icons/copy.svg";
+import cross from "../../assets/icons/cross.svg";
+import loader from "../../assets/loader/loader.gif";
 
-export const SuccessModal = () => {
+export const SuccessModal = ({ isSuccess, setIssuccess }) => {
   return (
-    <div className="success-modal">
+    <div
+      className="success-modal"
+      style={{
+        zIndex: isSuccess ? "1050" : "-1",
+        opacity: isSuccess ? "1" : "0",
+      }}
+    >
       <img src={sucesss} alt="success-svg" />
       <p className="title-b-24-txt-pri">Congratulations</p>
       <p className="txt-reg-14-txt-sec">
         Your funds has been transfered into your privacy pool and the can be
         withdrawed with the personal note provided to you.
       </p>
-      <Button className="btn-primary">Done for now</Button>
+      <Button className="btn-primary" onClick={() => setIssuccess(false)}>
+        Done for now
+      </Button>
     </div>
   );
 };
 
-export const NoteModal = ({ note, setIsNoteModal, deposit }) => {
+export const NoteModal = ({
+  note,
+  setIsNoteModal,
+  deposit,
+  isLoading,
+  isError,
+}) => {
   const [toast, setToast] = useState(false);
   //HANDLING METHODS
 
@@ -50,8 +66,8 @@ export const NoteModal = ({ note, setIsNoteModal, deposit }) => {
     },
   };
 
-  return (
-    <div className="note-modal">
+  const renderNoteModal = (
+    <>
       <div>
         <p>Your note</p>
         <img
@@ -81,6 +97,49 @@ export const NoteModal = ({ note, setIsNoteModal, deposit }) => {
       <Button className="btn-primary" onClick={() => deposit()}>
         Deposit
       </Button>
+    </>
+  );
+
+  const renderLoader = (
+    <div className="loader">
+      <img src={loader} alt="loader" />
+      <p className="txt-reg-16-txt-sec">Depositing your funds</p>
+      <div>
+        <p className="txt-reg-14-txt-sec">Don't refresh or close the tab </p>
+        <p className="txt-reg-14-txt-sec">
+          until the transaction has been finished
+        </p>
+      </div>
     </div>
   );
+
+  const renderError = (
+    <div className="error">
+      <img src={cross} alt="cross" width={"25%"} />
+      <p className="txt-reg-16-txt-sec">Transaction canceled</p>
+    </div>
+  );
+
+  return (
+    <div className="note-modal">
+      {isLoading ? renderLoader : isError ? renderError : renderNoteModal}
+    </div>
+  );
+};
+
+export const ProcessModal = () => {
+  const renderLoader = (
+    <div className="loader">
+      <img src={loader} alt="loader" />
+      <p className="txt-reg-16-txt-sec">Withdrawl on progress</p>
+      <div>
+        <p className="txt-reg-14-txt-sec">Don't refresh or close the tab </p>
+        <p className="txt-reg-14-txt-sec">
+          until the transaction has been finished
+        </p>
+      </div>
+    </div>
+  );
+
+  return <div className="process-modal">{renderLoader}</div>;
 };

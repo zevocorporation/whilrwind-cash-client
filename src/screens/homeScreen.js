@@ -6,7 +6,7 @@ import "../styles/screens/home.scss";
 
 //IMPORTING PATTERNS
 
-import { NoteModal } from "../patterns/modals/modal";
+import { NoteModal, SuccessModal } from "../patterns/modals/modal";
 import { Footer, Wallet, Work } from "../patterns/";
 import { Button } from "../components";
 import { deposit, getNote } from "../utils/whirlwind";
@@ -27,6 +27,9 @@ const HomeScreen = () => {
   const [selectedCoin, setSelectedCoin] = useState();
   const [isSelectedAmt, setIsSelectedAmt] = useState();
   const [isNoteModal, setIsNoteModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIssuccess] = useState(false);
 
   //HANDLING METHODS
 
@@ -41,8 +44,24 @@ const HomeScreen = () => {
 
   async function proceedDeposit() {
     if (notes !== undefined) {
+      setIsLoading(true);
       try {
-        let result = await deposit();
+        await deposit()
+          .then((res) => {
+            console.log(res);
+            setIsLoading(false);
+            setIsNoteModal(false);
+            setIssuccess(true);
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+            setIsError(true);
+            setTimeout(() => {
+              setIsError(false);
+              setIsNoteModal(false);
+            }, 3000);
+          });
       } catch (e) {
         console.log(e);
       }
@@ -245,9 +264,6 @@ const HomeScreen = () => {
         <Button className="btn-primary" onClick={() => setData()}>
           Generate note
         </Button>
-        {/* <Button className="btn-primary" onClick={() => proceedDeposit()}>
-          Deposit
-        </Button> */}
       </div>
       {renderDetailsCard}
     </div>
@@ -278,9 +294,12 @@ const HomeScreen = () => {
           note={notes}
           setIsNoteModal={setIsNoteModal}
           deposit={proceedDeposit}
+          isLoading={isLoading}
+          isError={isError}
         />
       ) : null}
-      {isNoteModal ? <div className="backdrop"></div> : null}
+      {isNoteModal || isSuccess ? <div className="backdrop"></div> : null}
+      <SuccessModal setIssuccess={setIssuccess} isSuccess={isSuccess} />
       <Work />
 
       <Footer />

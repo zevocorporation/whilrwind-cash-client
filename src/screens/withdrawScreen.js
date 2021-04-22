@@ -6,6 +6,7 @@ import "../styles/screens/withdraw.scss";
 
 //IMPORTING PATTERNS
 
+import { ProcessModal } from "../patterns/modals/modal";
 import { Footer, Wallet, Work } from "../patterns";
 import { Button } from "../components";
 
@@ -13,6 +14,7 @@ import { Button } from "../components";
 
 import info from "../assets/icons/info.svg";
 import hint from "../assets/icons/hint.svg";
+import cross from "../assets/icons/cross.svg";
 import uparrow from "../assets/icons/uparrow.svg";
 
 import { getWithdrawInfo, withdraw } from "../utils/whirlwind";
@@ -22,16 +24,39 @@ const WithdrawScreen = () => {
 
   const [state, setState] = useState(false);
   const [notes, setNotes] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isMsg, setIsMsg] = useState(false);
+  const [response, setResponse] = useState("");
 
   //HANDLING METHODS
 
   const handleWithdraw = async () => {
     let result = getWithdrawInfo(notes);
+    setIsLoading(true);
     console.log(result);
+    await withdraw()
+      .then((res) => {
+        console.log(res);
+        setResponse(res);
+        setIsLoading(false);
+        setIsMsg(true);
+        setTimeout(() => {
+          setIsMsg(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.log(error);
+        setResponse({ err: error });
+        setIsError(true);
+        // setTimeout(() => {
+        //   setIsLoading(false);
+        //   setIsError(false);
+        // }, 3000);
+      });
   };
 
   const finishWithdraw = async () => {
-    let withdrawal = await withdraw();
     // .catch(function (result) {
     //   alert(result);
     // });
@@ -126,9 +151,6 @@ const WithdrawScreen = () => {
         <Button className="btn-primary" onClick={() => handleWithdraw()}>
           Withdrawal info
         </Button>
-        <Button className="btn-primary" onClick={() => finishWithdraw()}>
-          Withdraw funds
-        </Button>
       </div>
       {renderDetailsCard}
     </div>
@@ -152,6 +174,19 @@ const WithdrawScreen = () => {
   return (
     <>
       {renderScreen}
+      {isLoading ? <ProcessModal /> : null}
+      {isLoading || isMsg ? <div className="backdrop"></div> : null}
+      {isError ? (
+        <div className="error-popup">
+          <img src={cross} alt="cross" />
+          <p>{response.err}</p>
+        </div>
+      ) : null}
+      {isMsg ? (
+        <div className="error-popup">
+          <p>{response}</p>
+        </div>
+      ) : null}
       <Work />
       <Footer />
     </>
