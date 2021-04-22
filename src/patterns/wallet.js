@@ -13,8 +13,10 @@ import wallet from "../assets/icons/wallet.svg";
 import { UserContext } from "../store/contexts";
 
 const Wallet = (props) => {
+  //INITIALIZING HOOKS
+
   const { userState } = useContext(UserContext);
-  console.log(userState);
+
   //RENDERING CONTENT
 
   const renderContent = (
@@ -61,4 +63,4 @@ const Wallet = (props) => {
   );
 };
 
-export default Wallet;
+export default React.memo(Wallet);
