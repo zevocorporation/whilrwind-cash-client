@@ -1,0 +1,226 @@
+@import "../../index.scss";
+
+fixedCenter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  z-index: 1050;
+  border-radius: 5px;
+}
+
+.success-modal {
+  @extend fixedCenter;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-gap: 1em;
+  text-align: center;
+  padding: 2em;
+  transition: 0.3s all;
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+  @media (max-width: 576px) {
+    width: 90%;
+  }
+}
+
+.note-modal {
+  @extend fixedCenter;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1em;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 576px) {
+    width: 90%;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .note-block {
+    position: relative;
+    cursor: pointer;
+
+    .toast {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #fff;
+      color: #9aaa3a;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      grid-gap: 0.5em;
+
+      img {
+        width: 14px;
+      }
+    }
+  }
+
+  .note {
+    background: #f4fbff;
+    border: 0.5px solid rgba(177, 183, 188, 0.5);
+    border-radius: 5px;
+    padding: 1.25em;
+    resize: none;
+    overflow-y: hidden;
+    font-size: 14px;
+    font-family: "Larsseit Regular";
+    height: max-content;
+  }
+
+  .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-gap: 1em;
+
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    img {
+      width: 50%;
+    }
+  }
+
+  .error {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 2em;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  width: 260px;
+  top: 100px;
+  right: 10%;
+  box-shadow: 0px 3px 20px rgba(188, 109, 244, 0.1);
+  background: #fff;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1.5em;
+  border: 5px;
+  transition: 0.5s all ease-in-out;
+
+  a {
+    display: flex;
+    align-items: center;
+    grid-gap: 1em;
+  }
+  span {
+    color: $secondary;
+  }
+  .active span {
+    color: #000;
+  }
+  .sidebar-avatar {
+    width: 37px;
+    height: 37px;
+    display: none;
+
+    @media (max-width: 576px) {
+      display: block;
+    }
+  }
+  .user-connected {
+    display: none;
+
+    @media (max-width: 576px) {
+      display: flex;
+      grid-gap: 1em;
+    }
+  }
+}
+
+.sidebar::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background: #fff;
+  position: absolute;
+  right: 10px;
+  top: -20px;
+  z-index: 1000;
+}
+
+.connect-modal {
+  @extend fixedCenter;
+  padding: 1em;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1em;
+
+  div {
+    display: flex;
+    align-items: center;
+    grid-gap: 1em;
+    height: 3em;
+    cursor: pointer;
+
+    img {
+      height: 100%;
+    }
+    p {
+      text-align: center;
+      font-size: 1.6em;
+      align-self: center;
+      width: 100%;
+    }
+  }
+}
+
+.warning-modal {
+  @extend fixedCenter;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-gap: 1em;
+}
+
+.process-modal {
+  @extend fixedCenter;
+  padding: 1.5em;
+  text-align: center;
+  width: 300px;
+
+  @media (max-width: 576px) {
+    width: 80%;
+  }
+
+  .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-gap: 1em;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    img {
+      width: 50%;
+    }
+  }
+}
