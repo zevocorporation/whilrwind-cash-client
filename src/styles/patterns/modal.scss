@@ -79,7 +79,8 @@ fixedCenter {
     overflow-y: hidden;
     font-size: 14px;
     font-family: "Larsseit Regular";
-    height: max-content;
+    border: none;
+    outline: none;
   }
 
   .loader {
