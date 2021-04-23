@@ -57,10 +57,6 @@ const WithdrawScreen = () => {
           console.log(error);
           setResponse({ err: error });
           setIsError(true);
-          // setTimeout(() => {
-          //   setIsLoading(false);
-          //   setIsError(false);
-          // }, 3000);
         });
     }
   };
