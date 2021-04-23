@@ -95,23 +95,6 @@ const WithdrawScreen = () => {
     </div>
   );
 
-  // const renderDetailsCard = (
-  //   <div className="block-right">
-  //     <div style={inlineStyle.flex}>
-  //       <p className="title-b-24-txt-pri">Latest deposits</p>
-  //       <p className="txt-reg-14-txt-grad">see more</p>
-  //     </div>
-  //     <div className="transaction-card">
-  //       <div className="history">
-  //         <img src={uparrow} alt="uparrow" />
-  //         <span>0 ETH</span>
-  //         <span>address</span>
-  //         <span>2 mins</span>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
   //RENDERING DETAILS
 
   const renderDetails = (
