@@ -317,7 +317,6 @@ const HomeScreen = () => {
           )
         ) : null}
       </div>
-      {/* {renderDetailsCard} */}
     </div>
   );
 
