@@ -81,8 +81,6 @@ const Header = () => {
           Connect wallet
         </Button>
       )}
-      {/* IF USER CONNECTED */}
-      {/* <img src={avatar} alt="avatar" className="avatar" /> */}
       <img
         src={menu}
         alt="menu"

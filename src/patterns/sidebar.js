@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 //IMPORTING STYLESHEET
 
@@ -16,8 +16,15 @@ import compliance from "../assets/icons/compliance.svg";
 import activity from "../assets/icons/activity.svg";
 import ConnectModal from "./modals/connectModal";
 
+//IMPORTING STORE COMPONENTS
+
+import { UserContext } from "../store/contexts";
+
 const Sidebar = ({ isSidebar, setIsSidebar }) => {
+  //INITIALIZING HOOKS
+
   const [isConnectPopup, setIsConnectPopup] = useState(false);
+  const { userState } = useContext(UserContext);
 
   //HANDLING METHODS
 
@@ -59,9 +66,9 @@ const Sidebar = ({ isSidebar, setIsSidebar }) => {
       >
         {renderLinks}
         <div className="user-connected">
-          {window.from ? (
+          {userState?.address ? (
             <Button className="btn-primary">
-              {window.from.slice(window.from.length - 7)}...
+              {userState?.address.slice(userState?.address?.length - 7)}...
             </Button>
           ) : (
             <Button className="btn-primary" onClick={() => handleConnect()}>
